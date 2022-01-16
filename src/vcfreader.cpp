@@ -11,7 +11,7 @@ VcfReader::VcfReader(const string& filename)
 :mFilename(filename),mStartOffset(0)
 {
 
-  mFile = new zstr::ifstream(filename);
+  mFile = new zstr::ifstream(filename,  ios::binary);
   readHeader();
 
 }
