@@ -276,6 +276,12 @@ class VcfReader(object):
 
     def get_format(self, key):
         return _vcfreader.VcfReader_get_format(self, key)
+
+    def next(self):
+        return _vcfreader.VcfReader_next(self)
+
+    def record(self):
+        return _vcfreader.VcfReader_record(self)
     __swig_destroy__ = _vcfreader.delete_VcfReader
 
 # Register VcfReader in _vcfreader:

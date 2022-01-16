@@ -1,6 +1,8 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <zstr.hpp>
+#include <sstream>  
 using namespace std;
 /*
 
@@ -30,11 +32,11 @@ public:
 	struct Record {
 
 		string chrom;
-		uint64_t pos;
+		int pos;
 		string id;
 		string ref;
 		string alt;
-		uint64_t qual;
+		int qual;
 		string filter;
 
 
@@ -50,18 +52,29 @@ public:
 		const Header& get_info(const string& key);
 		const Header& get_format(const string& key);
 
+		bool next();
+
+		const Record& record() const;
+
 
 	protected:
 		void readHeader();
+		void readRecord();
 
 
 
 
 	private:
-		Record mCurrent;
+		string mCurrentLine;
+		Record mCurrentRecord;
 		string mFilename;
 		map<string, Header> mFormats;
 		map<string, Header> mInfos;
 		map<string, Header> mFilter;
+
+		zstr::ifstream * mFile;
+
+
+		uint64_t mStartOffset;
 
 	};
