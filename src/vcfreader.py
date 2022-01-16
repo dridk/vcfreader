@@ -61,6 +61,209 @@ class _SwigNonDynamicMeta(type):
     __setattr__ = _swig_setattr_nondynamic_class_variable(type.__setattr__)
 
 
+class SwigPyIterator(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _vcfreader.delete_SwigPyIterator
+
+    def value(self):
+        return _vcfreader.SwigPyIterator_value(self)
+
+    def incr(self, n=1):
+        return _vcfreader.SwigPyIterator_incr(self, n)
+
+    def decr(self, n=1):
+        return _vcfreader.SwigPyIterator_decr(self, n)
+
+    def distance(self, x):
+        return _vcfreader.SwigPyIterator_distance(self, x)
+
+    def equal(self, x):
+        return _vcfreader.SwigPyIterator_equal(self, x)
+
+    def copy(self):
+        return _vcfreader.SwigPyIterator_copy(self)
+
+    def next(self):
+        return _vcfreader.SwigPyIterator_next(self)
+
+    def __next__(self):
+        return _vcfreader.SwigPyIterator___next__(self)
+
+    def previous(self):
+        return _vcfreader.SwigPyIterator_previous(self)
+
+    def advance(self, n):
+        return _vcfreader.SwigPyIterator_advance(self, n)
+
+    def __eq__(self, x):
+        return _vcfreader.SwigPyIterator___eq__(self, x)
+
+    def __ne__(self, x):
+        return _vcfreader.SwigPyIterator___ne__(self, x)
+
+    def __iadd__(self, n):
+        return _vcfreader.SwigPyIterator___iadd__(self, n)
+
+    def __isub__(self, n):
+        return _vcfreader.SwigPyIterator___isub__(self, n)
+
+    def __add__(self, n):
+        return _vcfreader.SwigPyIterator___add__(self, n)
+
+    def __sub__(self, *args):
+        return _vcfreader.SwigPyIterator___sub__(self, *args)
+    def __iter__(self):
+        return self
+
+# Register SwigPyIterator in _vcfreader:
+_vcfreader.SwigPyIterator_swigregister(SwigPyIterator)
+
+class map_string_string(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        return _vcfreader.map_string_string_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        return _vcfreader.map_string_string___nonzero__(self)
+
+    def __bool__(self):
+        return _vcfreader.map_string_string___bool__(self)
+
+    def __len__(self):
+        return _vcfreader.map_string_string___len__(self)
+    def __iter__(self):
+        return self.key_iterator()
+    def iterkeys(self):
+        return self.key_iterator()
+    def itervalues(self):
+        return self.value_iterator()
+    def iteritems(self):
+        return self.iterator()
+
+    def __getitem__(self, key):
+        return _vcfreader.map_string_string___getitem__(self, key)
+
+    def __delitem__(self, key):
+        return _vcfreader.map_string_string___delitem__(self, key)
+
+    def has_key(self, key):
+        return _vcfreader.map_string_string_has_key(self, key)
+
+    def keys(self):
+        return _vcfreader.map_string_string_keys(self)
+
+    def values(self):
+        return _vcfreader.map_string_string_values(self)
+
+    def items(self):
+        return _vcfreader.map_string_string_items(self)
+
+    def __contains__(self, key):
+        return _vcfreader.map_string_string___contains__(self, key)
+
+    def key_iterator(self):
+        return _vcfreader.map_string_string_key_iterator(self)
+
+    def value_iterator(self):
+        return _vcfreader.map_string_string_value_iterator(self)
+
+    def __setitem__(self, *args):
+        return _vcfreader.map_string_string___setitem__(self, *args)
+
+    def asdict(self):
+        return _vcfreader.map_string_string_asdict(self)
+
+    def __init__(self, *args):
+        _vcfreader.map_string_string_swiginit(self, _vcfreader.new_map_string_string(*args))
+
+    def empty(self):
+        return _vcfreader.map_string_string_empty(self)
+
+    def size(self):
+        return _vcfreader.map_string_string_size(self)
+
+    def swap(self, v):
+        return _vcfreader.map_string_string_swap(self, v)
+
+    def begin(self):
+        return _vcfreader.map_string_string_begin(self)
+
+    def end(self):
+        return _vcfreader.map_string_string_end(self)
+
+    def rbegin(self):
+        return _vcfreader.map_string_string_rbegin(self)
+
+    def rend(self):
+        return _vcfreader.map_string_string_rend(self)
+
+    def clear(self):
+        return _vcfreader.map_string_string_clear(self)
+
+    def get_allocator(self):
+        return _vcfreader.map_string_string_get_allocator(self)
+
+    def count(self, x):
+        return _vcfreader.map_string_string_count(self, x)
+
+    def erase(self, *args):
+        return _vcfreader.map_string_string_erase(self, *args)
+
+    def find(self, x):
+        return _vcfreader.map_string_string_find(self, x)
+
+    def lower_bound(self, x):
+        return _vcfreader.map_string_string_lower_bound(self, x)
+
+    def upper_bound(self, x):
+        return _vcfreader.map_string_string_upper_bound(self, x)
+    __swig_destroy__ = _vcfreader.delete_map_string_string
+
+# Register map_string_string in _vcfreader:
+_vcfreader.map_string_string_swigregister(map_string_string)
+
+class Header(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    HeaderType = property(_vcfreader.Header_HeaderType_get, _vcfreader.Header_HeaderType_set)
+    id = property(_vcfreader.Header_id_get, _vcfreader.Header_id_set)
+    number = property(_vcfreader.Header_number_get, _vcfreader.Header_number_set)
+    type = property(_vcfreader.Header_type_get, _vcfreader.Header_type_set)
+    description = property(_vcfreader.Header_description_get, _vcfreader.Header_description_set)
+
+    def __init__(self):
+        _vcfreader.Header_swiginit(self, _vcfreader.new_Header())
+    __swig_destroy__ = _vcfreader.delete_Header
+
+# Register Header in _vcfreader:
+_vcfreader.Header_swigregister(Header)
+
+class Record(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    chrom = property(_vcfreader.Record_chrom_get, _vcfreader.Record_chrom_set)
+    pos = property(_vcfreader.Record_pos_get, _vcfreader.Record_pos_set)
+    id = property(_vcfreader.Record_id_get, _vcfreader.Record_id_set)
+    ref = property(_vcfreader.Record_ref_get, _vcfreader.Record_ref_set)
+    alt = property(_vcfreader.Record_alt_get, _vcfreader.Record_alt_set)
+    qual = property(_vcfreader.Record_qual_get, _vcfreader.Record_qual_set)
+    filter = property(_vcfreader.Record_filter_get, _vcfreader.Record_filter_set)
+
+    def __init__(self):
+        _vcfreader.Record_swiginit(self, _vcfreader.new_Record())
+    __swig_destroy__ = _vcfreader.delete_Record
+
+# Register Record in _vcfreader:
+_vcfreader.Record_swigregister(Record)
+
 class VcfReader(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -68,14 +271,11 @@ class VcfReader(object):
     def __init__(self, filename):
         _vcfreader.VcfReader_swiginit(self, _vcfreader.new_VcfReader(filename))
 
-    def next(self):
-        return _vcfreader.VcfReader_next(self)
+    def get_info(self, key):
+        return _vcfreader.VcfReader_get_info(self, key)
 
-    def value(self):
-        return _vcfreader.VcfReader_value(self)
-
-    def test(self):
-        return _vcfreader.VcfReader_test(self)
+    def get_format(self, key):
+        return _vcfreader.VcfReader_get_format(self, key)
     __swig_destroy__ = _vcfreader.delete_VcfReader
 
 # Register VcfReader in _vcfreader:

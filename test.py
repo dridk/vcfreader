@@ -6,4 +6,7 @@ from vcfreader import VcfReader
 
 reader = VcfReader("examples/test.snpeff.vcf.gz")
 
-reader.test()
+
+print(reader.get_info("ANN").description)
+print(reader.get_format("GT").description)
+

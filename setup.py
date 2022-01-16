@@ -15,6 +15,7 @@ ZLIB_SRC =['zlib/contrib/minizip/zip.c', 'zlib/contrib/minizip/unzip.c', 'zlib/c
 vcfreader_module = Extension('_vcfreader',
 	sources=["src/vcfreader.cpp",
 	"src/vcfreader_wrap.cxx"] + ZLIB_SRC ,  
+	
 	include_dirs=['zstr','zlib','src'])
 
 
