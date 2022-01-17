@@ -2,79 +2,94 @@
 #include <map>
 #include <vector>
 #include <zstr.hpp>
-#include <sstream>  
+#include <sstream>
+
 using namespace std;
 /*
 
 class Value {
 public:
 
-	enum Type {
-
-		Int = 0,
-		Float = 1,
-		Str = 2,
-		Bool = 3,
-		List = 4	
-	};
 */
 
+enum Type: unsigned int;
 
-	struct Header {
+struct Value;
+struct Header;
+struct Record;
 
-		string HeaderType;
-		string id;
-		string number;
-		string type;
-		string description;
-	};
+enum Type: unsigned int
+{
 
-	struct Record {
+	Int = 0,
+	Float = 1,
+	Str = 2,
+	Bool = 3,
+	List = 4
+};
 
-		string chrom;
-		int pos;
-		string id;
-		string ref;
-		string alt;
-		int qual;
-		string filter;
+struct Header
+{
 
+	string HeaderType;
+	string id;
+	string number;
+	string type;
+	string description;
+};
 
-	};
+struct Record
+{
 
+	string chrom;
+	unsigned long pos;
+	string id;
+	string ref;
+	string alt;
+	string qual;
+	string filter;
+	map<string,Value> infos;
 
+	const Value& get_info(const string &key) const;
 
-	class VcfReader {
+	// vector<Value> formats;
+};
 
-	public:
-		VcfReader(const string& filename);
+//Handy way to define any python key,value pair type
+struct Value
+{
+	string type;
+	//DP=15:AF=0.3:
+	string key;
+	string value;
+};
 
-		const Header& get_info(const string& key);
-		const Header& get_format(const string& key);
+class VcfReader
+{
 
-		bool next();
+public:
+	VcfReader(const string &filename);
 
-		const Record& record() const;
+	const Header &get_info(const string &key);
+	const Header &get_format(const string &key);
 
+	bool next();
 
-	protected:
-		void readHeader();
-		void readRecord();
+	const Record &record() const;
 
+protected:
+	void readHeader();
+	void readRecord();
 
+private:
+	string mCurrentLine;
+	Record mCurrentRecord;
+	string mFilename;
+	map<string, Header> mFormats;
+	map<string, Header> mInfos;
+	map<string, Header> mFilter;
 
+	zstr::ifstream *mFile;
 
-	private:
-		string mCurrentLine;
-		Record mCurrentRecord;
-		string mFilename;
-		map<string, Header> mFormats;
-		map<string, Header> mInfos;
-		map<string, Header> mFilter;
-
-		zstr::ifstream * mFile;
-
-
-		uint64_t mStartOffset;
-
-	};
+	uint64_t mStartOffset;
+};

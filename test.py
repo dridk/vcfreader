@@ -12,8 +12,11 @@ print(reader.get_format("GT").description)
 
 counter = 0
 while reader.next():
-	print(reader.record().chrom);
-	print(reader.record().pos);
+	print(reader.record().chrom)
+	print(reader.record().pos)
+	print(reader.record().get_info("DP").value)
+	print(reader.record().get_info("DP").key)
+	print(reader.record().get_info("DP").type)
 
 
 
