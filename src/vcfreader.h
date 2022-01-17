@@ -27,7 +27,6 @@ enum Type: unsigned int
 	Bool = 3,
 	List = 4
 };
-
 struct Header
 {
 
@@ -72,6 +71,7 @@ public:
 
 	const Header &get_info(const string &key);
 	const Header &get_format(const string &key);
+	const vector<string> &get_samples();
 
 	bool next();
 
@@ -88,6 +88,7 @@ private:
 	map<string, Header> mFormats;
 	map<string, Header> mInfos;
 	map<string, Header> mFilter;
+	vector<string> mSamples;
 
 	zstr::ifstream *mFile;
 

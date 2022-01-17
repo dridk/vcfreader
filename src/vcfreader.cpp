@@ -45,6 +45,11 @@ const Record &VcfReader::record() const
   return mCurrentRecord;
 }
 
+const vector<string> &VcfReader::get_samples()
+{
+  return mSamples;
+}
+
 void VcfReader::readRecord()
 {
 
@@ -70,7 +75,7 @@ void VcfReader::readRecord()
   {
     size_t delim_pos = info.find('=');
     string _key = info.substr(0, delim_pos);
-    string value = info.substr(delim_pos+1, string::npos);
+    string value = info.substr(delim_pos + 1, string::npos);
     string info_type = mInfos[_key].type;
     mCurrentRecord.infos[_key] = Value{info_type, _key, value};
   }
@@ -82,6 +87,7 @@ void VcfReader::readHeader()
   string line;
   const regex info_format_regexp("##(\\w+)=<ID=([^,]+)\\s*,Number=([^,]+)\\s*,Type=([^,]+)\\s*,Description=\"([^\"]+)\">");
   const regex filter_regexp("##FILTER=<ID=([^,]+)\\s*,Description=\"([^\"]+)\">");
+  const regex sample_regexp("^#CHROM.+FORMAT\\s*(\\S.+)$");
 
   while (getline(*mFile, line))
   {
@@ -93,19 +99,19 @@ void VcfReader::readHeader()
     }
 
     // Parse INFO columns
-    smatch match;
-    if (regex_match(line, match, info_format_regexp))
+    smatch info_match;
+    if (regex_match(line, info_match, info_format_regexp))
     {
 
-      auto header_type = match[1];
-      auto header_id = match[2];
+      auto header_type = info_match[1];
+      auto header_id = info_match[2];
 
       Header header = Header{
-          match[1].str(), // Header Type
-          match[2].str(), // ID
-          match[3].str(), // NUMBER
-          match[4].str(), // TYPE
-          match[5].str(), // DESCRIPTION
+          info_match[1].str(), // Header Type
+          info_match[2].str(), // ID
+          info_match[3].str(), // NUMBER
+          info_match[4].str(), // TYPE
+          info_match[5].str(), // DESCRIPTION
       };
 
       if (header_type == "FORMAT")
@@ -114,10 +120,24 @@ void VcfReader::readHeader()
       if (header_type == "INFO")
         mInfos[header_id] = header;
     }
+    // Parse SAMPLE columns
+    smatch sample_match;
+    if (regex_match(line, sample_match, sample_regexp))
+    {
+
+      auto sample_names = sample_match[1];
+      stringstream all_samples(sample_names.str());
+
+      string sampleName;
+      while (getline(all_samples, sampleName, '\t'))
+      {
+        mSamples.push_back(sampleName);
+      }
+    }
   }
 }
 
-const Value& Record::get_info(const string &key) const
+const Value &Record::get_info(const string &key) const
 {
   return infos.at(key);
 }
