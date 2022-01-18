@@ -264,9 +264,13 @@ class Record(object):
     filter = property(_vcfreader.Record_filter_get, _vcfreader.Record_filter_set)
     infos = property(_vcfreader.Record_infos_get, _vcfreader.Record_infos_set)
     formats = property(_vcfreader.Record_formats_get, _vcfreader.Record_formats_set)
+    format_names = property(_vcfreader.Record_format_names_get, _vcfreader.Record_format_names_set)
 
-    def get_infos(self):
-        return _vcfreader.Record_get_infos(self)
+    def get_info_keys(self):
+        return _vcfreader.Record_get_info_keys(self)
+
+    def get_format_keys(self):
+        return _vcfreader.Record_get_format_keys(self)
 
     def get_info(self, key):
         return _vcfreader.Record_get_info(self, key)

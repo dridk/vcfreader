@@ -7,6 +7,7 @@
 using namespace std;
 
 
+//=============== TOOLS =============================
 bool is_digit(const string& str){
   for (char const &c : str) {
     if (isdigit(c) == 0) return false;
@@ -15,6 +16,7 @@ bool is_digit(const string& str){
   return true;
 
 }
+//=============== VcfReader =============================
 
 VcfReader::VcfReader(const string &filename)
 : mFilename(filename), mStartOffset(0)
@@ -24,28 +26,35 @@ VcfReader::VcfReader(const string &filename)
   readHeader();
 }
 
+//--------------------------------------------------
+
 const Header &VcfReader::get_info(const string &key)
 {
 
   return mInfos.at(key);
 }
 
+//--------------------------------------------------
+
 const Header &VcfReader::get_format(const string &key)
 {
   return mFormats.at(key);
 }
 
+//--------------------------------------------------
 
 VcfReader* VcfReader::__iter__(){
 
   return this;
 }
+//--------------------------------------------------
 
 const Record& VcfReader::__next__(){
 
   next();
   return record();
 }
+//--------------------------------------------------
 
 bool VcfReader::next()
 {
@@ -60,17 +69,20 @@ bool VcfReader::next()
 
   return false;
 }
+//--------------------------------------------------
 
 const Record &VcfReader::record() const
 {
 
   return mCurrentRecord;
 }
+//--------------------------------------------------
 
 const vector<string> &VcfReader::get_samples()
 {
   return mSamples;
 }
+//--------------------------------------------------
 
 void VcfReader::readRecord()
 {
@@ -109,11 +121,10 @@ void VcfReader::readRecord()
 
   // Parse format field 
   if (fields.size() > 9) {
-    vector<string> format_names;
     string format;
     stringstream format_tokens(fields.at(8));
     while (getline(format_tokens, format,':')){
-      format_names.push_back(format);
+      mCurrentRecord.format_names.push_back(format);
     }
 
     // parse samples 
@@ -126,27 +137,19 @@ void VcfReader::readRecord()
 
       while (getline(sample_tokens, sample_value,':')){
 
-        auto key = format_names[format_index];
+        auto key = mCurrentRecord.format_names[format_index];
         auto format = mFormats[key];
         sample_data[key] = Value{format.dim,format.type, key, sample_value};
         format_index++;
-
 
       }
 
       mCurrentRecord.formats.push_back(sample_data);
 
     }
-
-
-
-
   }
-
-
-
-
 }
+//--------------------------------------------------
 
 void VcfReader::readHeader()
 {
@@ -205,28 +208,7 @@ void VcfReader::readHeader()
     }
   }
 
-  const Value &Record::get_info(const string &key) const
-  {
-    return infos.at(key);
-  }
-
-  const Value &Record::get_format(int index, const string& key) const
-  {
-    return formats[index].at(key);
-  }
-
-
-  vector<string> Record::get_infos() const
-  {
-    vector<string> retval;
-    for (auto const& element : infos) {
-      retval.push_back(element.first);
-    }   
-
-    return retval;
-  }
-
-
+//--------------------------------------------------
 
   vector<string> VcfReader::infos() const
   {
@@ -247,3 +229,32 @@ void VcfReader::readHeader()
     return retval;
 
   }
+//=============== Record =============================
+
+  vector<string> Record::get_info_keys() const
+  {
+      vector<string> retval;
+      for (auto const& element : infos) {
+        retval.push_back(element.first);
+      }
+
+      return retval;
+  }
+
+  vector<string> Record::get_format_keys() const
+  {
+    return format_names;
+  }
+
+  const Value &Record::get_info(const string &key) const
+  {
+    return infos.at(key);
+  }
+
+  const Value &Record::get_format(int index, const string& key) const
+  {
+    return formats[index].at(key);
+  }
+
+
+

@@ -8486,7 +8486,59 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Record_get_infos(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Record_format_names_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Record *arg1 = (Record *) 0 ;
+  std::vector< std::string > *arg2 = (std::vector< std::string > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Record_format_names_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Record, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Record_format_names_set" "', argument " "1"" of type '" "Record *""'"); 
+  }
+  arg1 = reinterpret_cast< Record * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Record_format_names_set" "', argument " "2"" of type '" "std::vector< std::string > *""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< std::string > * >(argp2);
+  if (arg1) (arg1)->format_names = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Record_format_names_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Record *arg1 = (Record *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< std::string > *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Record, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Record_format_names_get" "', argument " "1"" of type '" "Record *""'"); 
+  }
+  arg1 = reinterpret_cast< Record * >(argp1);
+  result = (std::vector< std::string > *)& ((arg1)->format_names);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Record_get_info_keys(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Record *arg1 = (Record *) 0 ;
   void *argp1 = 0 ;
@@ -8498,10 +8550,33 @@ SWIGINTERN PyObject *_wrap_Record_get_infos(PyObject *SWIGUNUSEDPARM(self), PyOb
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Record, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Record_get_infos" "', argument " "1"" of type '" "Record const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Record_get_info_keys" "', argument " "1"" of type '" "Record const *""'"); 
   }
   arg1 = reinterpret_cast< Record * >(argp1);
-  result = ((Record const *)arg1)->get_infos();
+  result = ((Record const *)arg1)->get_info_keys();
+  resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Record_get_format_keys(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Record *arg1 = (Record *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< std::string > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Record, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Record_get_format_keys" "', argument " "1"" of type '" "Record const *""'"); 
+  }
+  arg1 = reinterpret_cast< Record * >(argp1);
+  result = ((Record const *)arg1)->get_format_keys();
   resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
   return resultobj;
 fail:
@@ -9362,7 +9437,10 @@ static PyMethodDef SwigMethods[] = {
 	 { "Record_infos_get", _wrap_Record_infos_get, METH_O, NULL},
 	 { "Record_formats_set", _wrap_Record_formats_set, METH_VARARGS, NULL},
 	 { "Record_formats_get", _wrap_Record_formats_get, METH_O, NULL},
-	 { "Record_get_infos", _wrap_Record_get_infos, METH_O, NULL},
+	 { "Record_format_names_set", _wrap_Record_format_names_set, METH_VARARGS, NULL},
+	 { "Record_format_names_get", _wrap_Record_format_names_get, METH_O, NULL},
+	 { "Record_get_info_keys", _wrap_Record_get_info_keys, METH_O, NULL},
+	 { "Record_get_format_keys", _wrap_Record_get_format_keys, METH_O, NULL},
 	 { "Record_get_info", _wrap_Record_get_info, METH_VARARGS, NULL},
 	 { "Record_get_format", _wrap_Record_get_format, METH_VARARGS, NULL},
 	 { "new_Record", _wrap_new_Record, METH_NOARGS, NULL},

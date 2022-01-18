@@ -18,4 +18,4 @@ reader = VcfReader("examples/test.snpeff.vcf.gz")
 for record in reader:
     print(record.chrom)
 
-    print(record.get_infos())
+    print(record.get_info_keys())

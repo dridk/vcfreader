@@ -17,9 +17,6 @@ public:
 bool is_digit(const string& str);
 
 
-
-
-
 enum Type: unsigned int;
 
 struct Value;
@@ -59,9 +56,10 @@ struct Record
 
 	map<string,Value> infos;
 	vector< map<string,Value> >formats;
+	vector<string> format_names;
 
-
-	vector<string> get_infos() const;
+	vector<string> get_info_keys() const;
+	vector<string> get_format_keys() const;
 
 	const Value& get_info(const string &key) const;
 	const Value& get_format(int index, const string& key) const;
