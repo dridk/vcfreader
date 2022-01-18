@@ -12,11 +12,18 @@ public:
 
 */
 
+// HELPER ... 
+
+bool is_digit(const string& str);
+
+
+
 enum Type: unsigned int;
 
 struct Value;
 struct Header;
 struct Record;
+class VcfReader;
 
 enum Type: unsigned int
 {
@@ -32,7 +39,7 @@ struct Header
 
 	string HeaderType;
 	string id;
-	string number;
+	uint dim;
 	string type;
 	string description;
 };
@@ -60,8 +67,8 @@ struct Record
 //Handy way to define any python key,value pair type
 struct Value
 {
+	uint dim; 
 	string type;
-	//DP=15:AF=0.3:
 	string key;
 	string value;
 };
@@ -79,6 +86,10 @@ public:
 	bool next();
 
 	const Record &record() const;
+
+	VcfReader * __iter__();
+	const Record& __next__();
+
 
 
 protected:

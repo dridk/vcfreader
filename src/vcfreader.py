@@ -228,6 +228,9 @@ class StringVector(object):
 # Register StringVector in _vcfreader:
 _vcfreader.StringVector_swigregister(StringVector)
 
+
+def is_digit(str):
+    return _vcfreader.is_digit(str)
 Int = _vcfreader.Int
 Float = _vcfreader.Float
 Str = _vcfreader.Str
@@ -238,7 +241,7 @@ class Header(object):
     __repr__ = _swig_repr
     HeaderType = property(_vcfreader.Header_HeaderType_get, _vcfreader.Header_HeaderType_set)
     id = property(_vcfreader.Header_id_get, _vcfreader.Header_id_set)
-    number = property(_vcfreader.Header_number_get, _vcfreader.Header_number_set)
+    dim = property(_vcfreader.Header_dim_get, _vcfreader.Header_dim_set)
     type = property(_vcfreader.Header_type_get, _vcfreader.Header_type_set)
     description = property(_vcfreader.Header_description_get, _vcfreader.Header_description_set)
 
@@ -278,6 +281,7 @@ _vcfreader.Record_swigregister(Record)
 class Value(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
+    dim = property(_vcfreader.Value_dim_get, _vcfreader.Value_dim_set)
     type = property(_vcfreader.Value_type_get, _vcfreader.Value_type_set)
     key = property(_vcfreader.Value_key_get, _vcfreader.Value_key_set)
     value = property(_vcfreader.Value_value_get, _vcfreader.Value_value_set)
@@ -310,6 +314,12 @@ class VcfReader(object):
 
     def record(self):
         return _vcfreader.VcfReader_record(self)
+
+    def __iter__(self):
+        return _vcfreader.VcfReader___iter__(self)
+
+    def __next__(self):
+        return _vcfreader.VcfReader___next__(self)
     __swig_destroy__ = _vcfreader.delete_VcfReader
 
 # Register VcfReader in _vcfreader:

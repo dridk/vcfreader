@@ -6,6 +6,16 @@
 
 using namespace std;
 
+
+bool is_digit(const string& str){
+for (char const &c : str) {
+        if (isdigit(c) == 0) return false;
+    }
+
+    return true;
+
+}
+
 VcfReader::VcfReader(const string &filename)
 : mFilename(filename), mStartOffset(0)
 {
@@ -24,6 +34,18 @@ const Header &VcfReader::get_format(const string &key)
 {
   return mFormats.at(key);
 }
+
+
+  VcfReader* VcfReader::__iter__(){
+    
+    return this;
+  }
+
+  const Record& VcfReader::__next__(){
+
+    next();
+    return record();
+  }
 
 bool VcfReader::next()
 {
@@ -78,7 +100,9 @@ void VcfReader::readRecord()
       string _key = info.substr(0, delim_pos);
       string value = info.substr(delim_pos + 1, string::npos);
       string info_type = mInfos[_key].type;
-      mCurrentRecord.infos[_key] = Value{info_type, _key, value};
+      uint dim = mInfos[_key].dim;
+      
+      mCurrentRecord.infos[_key] = Value{dim, info_type, _key, value};
     }
 
   }
@@ -93,25 +117,26 @@ void VcfReader::readRecord()
     }
 
     // parse samples 
+    cout<<mCurrentLine<<endl;
     for (uint i = 9 ; i<fields.size(); ++i)
     {
       stringstream sample_tokens(fields.at(i));
       string sample_value;
       map<string,Value> sample_data;
       int format_index=0;
-      while (getline(sample_tokens, sample_value,':')){
-      
-        auto key = format_names[format_index];
-        auto type = get_format(key).type;
 
-        sample_data[key] = Value{type, key, sample_value};
+      while (getline(sample_tokens, sample_value,':')){
+
+        auto key = format_names[format_index];
+        auto format = mFormats[key];
+        sample_data[key] = Value{format.dim,format.type, key, sample_value};
         format_index++;
+
 
       }
 
       mCurrentRecord.formats.push_back(sample_data);
 
-      //mFormats.push_back(sample_data);
     }
 
 
@@ -149,10 +174,12 @@ void VcfReader::readHeader()
       auto header_type = info_match[1];
       auto header_id = info_match[2];
 
+      string dimension = info_match[3].str();
+
       Header header = Header{
           info_match[1].str(), // Header Type
-          info_match[2].str(), // ID
-          info_match[3].str(), // NUMBER
+          info_match[2].str(), 
+          1,
           info_match[4].str(), // TYPE
           info_match[5].str(), // DESCRIPTION
         };
