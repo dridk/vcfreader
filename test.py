@@ -1,7 +1,10 @@
 from vcfreader import VcfReader
 
 
-reader = VcfReader("examples/test.snpeff.vcf.gz")
+reader = VcfReader("../examples/test.vep.vcf")
+
+
+print(reader.get_samples())
 
 
 # print(reader.get_info("ANN").description)
@@ -15,7 +18,8 @@ reader = VcfReader("examples/test.snpeff.vcf.gz")
 #     print(reader.record().get_info("DP"))
 
 
-for record in reader:
-    print(record.chrom)
+# for record in reader:
+#     print(record.get_format(0,"GT"))
 
-    print(record.get_info_keys())
+#     break
+

@@ -1,18 +1,14 @@
-
-#include <iostream>
+#include <QCoreApplication>
+#include <QDebug>
 #include "vcfreader.h"
-using namespace std;
-
-
-int main()
+int main(int argc, char *argv[])
 {
 
-    VcfReader reader("../examples/test.snpeff.vcf.gz");
+    VcfReader reader("../examples/test.vep.vcf");
 
 
-     cout<<reader.get_samples()[0]<<endl;
+    for (auto i  : reader.get_samples())
+        cout<<"ici"<<i<<endl;
 
-
-
-	return 0;
+    return 0;
 }
