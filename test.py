@@ -17,6 +17,5 @@ reader = VcfReader("examples/test.snpeff.vcf.gz")
 
 for record in reader:
     print(record.chrom)
-    print(record.pos)
-    print(record.get_info("DP"))
-    print(record.get_format(0, "GT"))
+
+    print(record.get_infos())

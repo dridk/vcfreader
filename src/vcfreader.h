@@ -18,6 +18,8 @@ bool is_digit(const string& str);
 
 
 
+
+
 enum Type: unsigned int;
 
 struct Value;
@@ -54,9 +56,12 @@ struct Record
 	string alt;
 	string qual;
 	string filter;
+
 	map<string,Value> infos;
-	
 	vector< map<string,Value> >formats;
+
+
+	vector<string> get_infos() const;
 
 	const Value& get_info(const string &key) const;
 	const Value& get_format(int index, const string& key) const;
@@ -82,6 +87,9 @@ public:
 	const Header &get_info(const string &key);
 	const Header &get_format(const string &key);
 	const vector<string> &get_samples();
+
+	 vector<string> infos() const;
+	 vector<string> formats() const;
 
 	bool next();
 

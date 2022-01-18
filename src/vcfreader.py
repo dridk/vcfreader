@@ -265,6 +265,9 @@ class Record(object):
     infos = property(_vcfreader.Record_infos_get, _vcfreader.Record_infos_set)
     formats = property(_vcfreader.Record_formats_get, _vcfreader.Record_formats_set)
 
+    def get_infos(self):
+        return _vcfreader.Record_get_infos(self)
+
     def get_info(self, key):
         return _vcfreader.Record_get_info(self, key)
 
@@ -308,6 +311,12 @@ class VcfReader(object):
 
     def get_samples(self):
         return _vcfreader.VcfReader_get_samples(self)
+
+    def infos(self):
+        return _vcfreader.VcfReader_infos(self)
+
+    def formats(self):
+        return _vcfreader.VcfReader_formats(self)
 
     def next(self):
         return _vcfreader.VcfReader_next(self)

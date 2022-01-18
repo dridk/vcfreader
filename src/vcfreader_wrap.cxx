@@ -8486,6 +8486,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Record_get_infos(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Record *arg1 = (Record *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< std::string > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Record, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Record_get_infos" "', argument " "1"" of type '" "Record const *""'"); 
+  }
+  arg1 = reinterpret_cast< Record * >(argp1);
+  result = ((Record const *)arg1)->get_infos();
+  resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Record_get_info(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Record *arg1 = (Record *) 0 ;
@@ -9080,6 +9103,52 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_VcfReader_infos(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  VcfReader *arg1 = (VcfReader *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< std::string > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VcfReader, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader_infos" "', argument " "1"" of type '" "VcfReader const *""'"); 
+  }
+  arg1 = reinterpret_cast< VcfReader * >(argp1);
+  result = ((VcfReader const *)arg1)->infos();
+  resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_VcfReader_formats(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  VcfReader *arg1 = (VcfReader *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< std::string > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VcfReader, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader_formats" "', argument " "1"" of type '" "VcfReader const *""'"); 
+  }
+  arg1 = reinterpret_cast< VcfReader * >(argp1);
+  result = ((VcfReader const *)arg1)->formats();
+  resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_VcfReader_next(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   VcfReader *arg1 = (VcfReader *) 0 ;
@@ -9293,6 +9362,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "Record_infos_get", _wrap_Record_infos_get, METH_O, NULL},
 	 { "Record_formats_set", _wrap_Record_formats_set, METH_VARARGS, NULL},
 	 { "Record_formats_get", _wrap_Record_formats_get, METH_O, NULL},
+	 { "Record_get_infos", _wrap_Record_get_infos, METH_O, NULL},
 	 { "Record_get_info", _wrap_Record_get_info, METH_VARARGS, NULL},
 	 { "Record_get_format", _wrap_Record_get_format, METH_VARARGS, NULL},
 	 { "new_Record", _wrap_new_Record, METH_NOARGS, NULL},
@@ -9315,6 +9385,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "VcfReader_get_info", _wrap_VcfReader_get_info, METH_VARARGS, NULL},
 	 { "VcfReader_get_format", _wrap_VcfReader_get_format, METH_VARARGS, NULL},
 	 { "VcfReader_get_samples", _wrap_VcfReader_get_samples, METH_O, NULL},
+	 { "VcfReader_infos", _wrap_VcfReader_infos, METH_O, NULL},
+	 { "VcfReader_formats", _wrap_VcfReader_formats, METH_O, NULL},
 	 { "VcfReader_next", _wrap_VcfReader_next, METH_O, NULL},
 	 { "VcfReader_record", _wrap_VcfReader_record, METH_O, NULL},
 	 { "VcfReader___iter__", _wrap_VcfReader___iter__, METH_O, NULL},

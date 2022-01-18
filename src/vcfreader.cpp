@@ -8,11 +8,11 @@ using namespace std;
 
 
 bool is_digit(const string& str){
-for (char const &c : str) {
-        if (isdigit(c) == 0) return false;
-    }
+  for (char const &c : str) {
+    if (isdigit(c) == 0) return false;
+  }
 
-    return true;
+  return true;
 
 }
 
@@ -36,16 +36,16 @@ const Header &VcfReader::get_format(const string &key)
 }
 
 
-  VcfReader* VcfReader::__iter__(){
-    
-    return this;
-  }
+VcfReader* VcfReader::__iter__(){
 
-  const Record& VcfReader::__next__(){
+  return this;
+}
 
-    next();
-    return record();
-  }
+const Record& VcfReader::__next__(){
+
+  next();
+  return record();
+}
 
 bool VcfReader::next()
 {
@@ -117,7 +117,6 @@ void VcfReader::readRecord()
     }
 
     // parse samples 
-    cout<<mCurrentLine<<endl;
     for (uint i = 9 ; i<fields.size(); ++i)
     {
       stringstream sample_tokens(fields.at(i));
@@ -162,7 +161,6 @@ void VcfReader::readHeader()
 
     if (line.substr(0, 1) != "#")
     {
-      cout << "Fin\n";
       break;
     }
 
@@ -215,4 +213,37 @@ void VcfReader::readHeader()
   const Value &Record::get_format(int index, const string& key) const
   {
     return formats[index].at(key);
+  }
+
+
+  vector<string> Record::get_infos() const
+  {
+    vector<string> retval;
+    for (auto const& element : infos) {
+      retval.push_back(element.first);
+    }   
+
+    return retval;
+  }
+
+
+
+  vector<string> VcfReader::infos() const
+  {
+    vector<string> retval;
+    for (auto const& element : mInfos) {
+      retval.push_back(element.first);
+    }
+
+    return retval;
+  }
+  vector<string> VcfReader::formats() const
+  {
+    vector<string> retval;
+    for (auto const& element : mFormats) {
+      retval.push_back(element.first);
+    }   
+
+    return retval;
+
   }
