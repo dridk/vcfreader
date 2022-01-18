@@ -7,7 +7,7 @@
 using namespace std;
 
 VcfReader::VcfReader(const string &filename)
-    : mFilename(filename), mStartOffset(0)
+: mFilename(filename), mStartOffset(0)
 {
 
   mFile = new zstr::ifstream(filename, ios::binary);
@@ -69,16 +69,59 @@ void VcfReader::readRecord()
   mCurrentRecord.filter = fields[6];
 
   //Parse info field for this record
-  string info;
-  stringstream info_tokens(fields.at(7));
-  while (getline(info_tokens, info, ';'))
-  {
-    size_t delim_pos = info.find('=');
-    string _key = info.substr(0, delim_pos);
-    string value = info.substr(delim_pos + 1, string::npos);
-    string info_type = mInfos[_key].type;
-    mCurrentRecord.infos[_key] = Value{info_type, _key, value};
+  if (fields.size() > 7){
+    string info;
+    stringstream info_tokens(fields.at(7));
+    while (getline(info_tokens, info, ';'))
+    {
+      size_t delim_pos = info.find('=');
+      string _key = info.substr(0, delim_pos);
+      string value = info.substr(delim_pos + 1, string::npos);
+      string info_type = mInfos[_key].type;
+      mCurrentRecord.infos[_key] = Value{info_type, _key, value};
+    }
+
   }
+
+  // Parse format field 
+  if (fields.size() > 9) {
+    vector<string> format_names;
+    string format;
+    stringstream format_tokens(fields.at(8));
+    while (getline(format_tokens, format,':')){
+      format_names.push_back(format);
+    }
+
+    // parse samples 
+    for (uint i = 9 ; i<fields.size(); ++i)
+    {
+      stringstream sample_tokens(fields.at(i));
+      string sample_value;
+      map<string,Value> sample_data;
+      int format_index=0;
+      while (getline(sample_tokens, sample_value,':')){
+      
+        auto key = format_names[format_index];
+        auto type = get_format(key).type;
+
+        sample_data[key] = Value{type, key, sample_value};
+        format_index++;
+
+      }
+
+      mCurrentRecord.formats.push_back(sample_data);
+
+      //mFormats.push_back(sample_data);
+    }
+
+
+
+
+  }
+
+
+
+
 }
 
 void VcfReader::readHeader()
@@ -112,32 +155,37 @@ void VcfReader::readHeader()
           info_match[3].str(), // NUMBER
           info_match[4].str(), // TYPE
           info_match[5].str(), // DESCRIPTION
-      };
+        };
 
-      if (header_type == "FORMAT")
-        mFormats[header_id] = header;
+        if (header_type == "FORMAT")
+          mFormats[header_id] = header;
 
-      if (header_type == "INFO")
-        mInfos[header_id] = header;
-    }
+        if (header_type == "INFO")
+          mInfos[header_id] = header;
+      }
     // Parse SAMPLE columns
-    smatch sample_match;
-    if (regex_match(line, sample_match, sample_regexp))
-    {
-
-      auto sample_names = sample_match[1];
-      stringstream all_samples(sample_names.str());
-
-      string sampleName;
-      while (getline(all_samples, sampleName, '\t'))
+      smatch sample_match;
+      if (regex_match(line, sample_match, sample_regexp))
       {
-        mSamples.push_back(sampleName);
+
+        auto sample_names = sample_match[1];
+        stringstream all_samples(sample_names.str());
+
+        string sampleName;
+        while (getline(all_samples, sampleName, '\t'))
+        {
+          mSamples.push_back(sampleName);
+        }
       }
     }
   }
-}
 
-const Value &Record::get_info(const string &key) const
-{
-  return infos.at(key);
-}
+  const Value &Record::get_info(const string &key) const
+  {
+    return infos.at(key);
+  }
+
+  const Value &Record::get_format(int index, const string& key) const
+  {
+    return formats[index].at(key);
+  }

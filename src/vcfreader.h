@@ -48,8 +48,11 @@ struct Record
 	string qual;
 	string filter;
 	map<string,Value> infos;
+	
+	vector< map<string,Value> >formats;
 
 	const Value& get_info(const string &key) const;
+	const Value& get_format(int index, const string& key) const;
 
 	// vector<Value> formats;
 };
@@ -76,6 +79,7 @@ public:
 	bool next();
 
 	const Record &record() const;
+
 
 protected:
 	void readHeader();

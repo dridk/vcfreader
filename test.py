@@ -1,7 +1,4 @@
-
-
-from vcfreader import VcfReader 
-
+from vcfreader import VcfReader
 
 
 reader = VcfReader("examples/test.snpeff.vcf.gz")
@@ -13,30 +10,20 @@ print(reader.get_format("GT").description)
 counter = 0
 print(reader.get_samples())
 while reader.next():
-	print(reader.record().chrom)
-	print(reader.record().pos)
-	print(reader.record().get_info("DP").value)
-	print(reader.record().get_info("DP").key)
-	print(reader.record().get_info("DP").type)
-
+    print(reader.record().chrom)
+    print(reader.record().pos)
+    print(reader.record().get_info("DP").value)
+    print(reader.record().get_info("DP").key)
+    print(reader.record().get_info("DP").type)
+print(reader.record().get_format(0, "GT").value)
+    break
 
 
 # for variant in reader:
 
-# 	sql.import_variant(variant)
+#   sql.import_variant(variant)
 
-	# print(variant.chrom)
-	# print(variant.pos)
+# print(variant.chrom)
+# print(variant.pos)
 
-	# print(variant.format["ANN"])
-
-
-
-
-
-
-
-
-
-
-
+# print(variant.format["ANN"])
