@@ -196,8 +196,6 @@ void VcfReader::readHeader()
     smatch sample_match;
     if (regex_search(line, sample_match, sample_regexp))
     {
-
-        cout<<line<<endl;
         auto sample_names = sample_match[1];
         stringstream all_samples(sample_names.str());
 
@@ -255,7 +253,11 @@ const Value &Record::get_info(const string &key) const
 
 const Value &Record::get_format(int index, const string& key) const
 {
+
     return formats[index].at(key);
+
+
+
 }
 
 

@@ -62,7 +62,8 @@ struct Record
 	vector<string> get_format_keys() const;
 
 	const Value& get_info(const string &key) const;
-	const Value& get_format(int index, const string& key) const;
+    const Value& get_format(int index, const string& key) const;
+
 
 	// vector<Value> formats;
 };

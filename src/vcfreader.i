@@ -3,9 +3,20 @@
 %include "std_string.i"
 %include "std_map.i"
 %include "std_vector.i"
+%include "exception.i"
+
 using namespace std;
 
 %template(StringVector) vector<string>;
+
+%exception {
+  try {
+    $action
+  } catch (const std::exception& e) {
+    SWIG_exception(SWIG_RuntimeError, e.what());
+  }
+}
+
 
 %typemap(out) Value& {
 	

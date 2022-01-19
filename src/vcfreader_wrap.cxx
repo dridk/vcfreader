@@ -7585,7 +7585,13 @@ SWIGINTERN PyObject *_wrap_delete_StringVector(PyObject *SWIGUNUSEDPARM(self), P
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_StringVector" "', argument " "1"" of type '" "std::vector< std::string > *""'"); 
   }
   arg1 = reinterpret_cast< std::vector< std::string > * >(argp1);
-  delete arg1;
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -7624,7 +7630,13 @@ SWIGINTERN PyObject *_wrap_is_digit(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
     }
     arg1 = ptr;
   }
-  result = (bool)is_digit((std::string const &)*arg1);
+  {
+    try {
+      result = (bool)is_digit((std::string const &)*arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
@@ -7935,7 +7947,13 @@ SWIGINTERN PyObject *_wrap_new_Header(PyObject *SWIGUNUSEDPARM(self), PyObject *
   Header *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "new_Header", 0, 0, 0)) SWIG_fail;
-  result = (Header *)new Header();
+  {
+    try {
+      result = (Header *)new Header();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Header, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -7957,7 +7975,13 @@ SWIGINTERN PyObject *_wrap_delete_Header(PyObject *SWIGUNUSEDPARM(self), PyObjec
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Header" "', argument " "1"" of type '" "Header *""'"); 
   }
   arg1 = reinterpret_cast< Header * >(argp1);
-  delete arg1;
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -8553,7 +8577,13 @@ SWIGINTERN PyObject *_wrap_Record_get_info_keys(PyObject *SWIGUNUSEDPARM(self), 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Record_get_info_keys" "', argument " "1"" of type '" "Record const *""'"); 
   }
   arg1 = reinterpret_cast< Record * >(argp1);
-  result = ((Record const *)arg1)->get_info_keys();
+  {
+    try {
+      result = ((Record const *)arg1)->get_info_keys();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
   return resultobj;
 fail:
@@ -8576,7 +8606,13 @@ SWIGINTERN PyObject *_wrap_Record_get_format_keys(PyObject *SWIGUNUSEDPARM(self)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Record_get_format_keys" "', argument " "1"" of type '" "Record const *""'"); 
   }
   arg1 = reinterpret_cast< Record * >(argp1);
-  result = ((Record const *)arg1)->get_format_keys();
+  {
+    try {
+      result = ((Record const *)arg1)->get_format_keys();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
   return resultobj;
 fail:
@@ -8611,7 +8647,13 @@ SWIGINTERN PyObject *_wrap_Record_get_info(PyObject *SWIGUNUSEDPARM(self), PyObj
     }
     arg2 = ptr;
   }
-  result = (Value *) &((Record const *)arg1)->get_info((std::string const &)*arg2);
+  {
+    try {
+      result = (Value *) &((Record const *)arg1)->get_info((std::string const &)*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   {
     resultobj = PyString_FromString(result->value.c_str());
     
@@ -8684,7 +8726,13 @@ SWIGINTERN PyObject *_wrap_Record_get_format(PyObject *SWIGUNUSEDPARM(self), PyO
     }
     arg3 = ptr;
   }
-  result = (Value *) &((Record const *)arg1)->get_format(arg2,(std::string const &)*arg3);
+  {
+    try {
+      result = (Value *) &((Record const *)arg1)->get_format(arg2,(std::string const &)*arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   {
     resultobj = PyString_FromString(result->value.c_str());
     
@@ -8727,7 +8775,13 @@ SWIGINTERN PyObject *_wrap_new_Record(PyObject *SWIGUNUSEDPARM(self), PyObject *
   Record *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "new_Record", 0, 0, 0)) SWIG_fail;
-  result = (Record *)new Record();
+  {
+    try {
+      result = (Record *)new Record();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Record, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -8749,7 +8803,13 @@ SWIGINTERN PyObject *_wrap_delete_Record(PyObject *SWIGUNUSEDPARM(self), PyObjec
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Record" "', argument " "1"" of type '" "Record *""'"); 
   }
   arg1 = reinterpret_cast< Record * >(argp1);
-  delete arg1;
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -9010,7 +9070,13 @@ SWIGINTERN PyObject *_wrap_new_Value(PyObject *SWIGUNUSEDPARM(self), PyObject *a
   Value *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "new_Value", 0, 0, 0)) SWIG_fail;
-  result = (Value *)new Value();
+  {
+    try {
+      result = (Value *)new Value();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Value, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -9032,7 +9098,13 @@ SWIGINTERN PyObject *_wrap_delete_Value(PyObject *SWIGUNUSEDPARM(self), PyObject
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Value" "', argument " "1"" of type '" "Value *""'"); 
   }
   arg1 = reinterpret_cast< Value * >(argp1);
-  delete arg1;
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -9071,7 +9143,13 @@ SWIGINTERN PyObject *_wrap_new_VcfReader(PyObject *SWIGUNUSEDPARM(self), PyObjec
     }
     arg1 = ptr;
   }
-  result = (VcfReader *)new VcfReader((std::string const &)*arg1);
+  {
+    try {
+      result = (VcfReader *)new VcfReader((std::string const &)*arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_VcfReader, SWIG_POINTER_NEW |  0 );
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
@@ -9108,7 +9186,13 @@ SWIGINTERN PyObject *_wrap_VcfReader_get_info(PyObject *SWIGUNUSEDPARM(self), Py
     }
     arg2 = ptr;
   }
-  result = (Header *) &(arg1)->get_info((std::string const &)*arg2);
+  {
+    try {
+      result = (Header *) &(arg1)->get_info((std::string const &)*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Header, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -9145,7 +9229,13 @@ SWIGINTERN PyObject *_wrap_VcfReader_get_format(PyObject *SWIGUNUSEDPARM(self), 
     }
     arg2 = ptr;
   }
-  result = (Header *) &(arg1)->get_format((std::string const &)*arg2);
+  {
+    try {
+      result = (Header *) &(arg1)->get_format((std::string const &)*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Header, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -9170,7 +9260,13 @@ SWIGINTERN PyObject *_wrap_VcfReader_get_samples(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader_get_samples" "', argument " "1"" of type '" "VcfReader *""'"); 
   }
   arg1 = reinterpret_cast< VcfReader * >(argp1);
-  result = (std::vector< std::string > *) &(arg1)->get_samples();
+  {
+    try {
+      result = (std::vector< std::string > *) &(arg1)->get_samples();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(*result));
   return resultobj;
 fail:
@@ -9193,7 +9289,13 @@ SWIGINTERN PyObject *_wrap_VcfReader_infos(PyObject *SWIGUNUSEDPARM(self), PyObj
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader_infos" "', argument " "1"" of type '" "VcfReader const *""'"); 
   }
   arg1 = reinterpret_cast< VcfReader * >(argp1);
-  result = ((VcfReader const *)arg1)->infos();
+  {
+    try {
+      result = ((VcfReader const *)arg1)->infos();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
   return resultobj;
 fail:
@@ -9216,7 +9318,13 @@ SWIGINTERN PyObject *_wrap_VcfReader_formats(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader_formats" "', argument " "1"" of type '" "VcfReader const *""'"); 
   }
   arg1 = reinterpret_cast< VcfReader * >(argp1);
-  result = ((VcfReader const *)arg1)->formats();
+  {
+    try {
+      result = ((VcfReader const *)arg1)->formats();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
   return resultobj;
 fail:
@@ -9239,7 +9347,13 @@ SWIGINTERN PyObject *_wrap_VcfReader_next(PyObject *SWIGUNUSEDPARM(self), PyObje
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader_next" "', argument " "1"" of type '" "VcfReader *""'"); 
   }
   arg1 = reinterpret_cast< VcfReader * >(argp1);
-  result = (bool)(arg1)->next();
+  {
+    try {
+      result = (bool)(arg1)->next();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -9262,7 +9376,13 @@ SWIGINTERN PyObject *_wrap_VcfReader_record(PyObject *SWIGUNUSEDPARM(self), PyOb
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader_record" "', argument " "1"" of type '" "VcfReader const *""'"); 
   }
   arg1 = reinterpret_cast< VcfReader * >(argp1);
-  result = (Record *) &((VcfReader const *)arg1)->record();
+  {
+    try {
+      result = (Record *) &((VcfReader const *)arg1)->record();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Record, 0 |  0 );
   return resultobj;
 fail:
@@ -9285,7 +9405,13 @@ SWIGINTERN PyObject *_wrap_VcfReader___iter__(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader___iter__" "', argument " "1"" of type '" "VcfReader *""'"); 
   }
   arg1 = reinterpret_cast< VcfReader * >(argp1);
-  result = (VcfReader *)(arg1)->__iter__();
+  {
+    try {
+      result = (VcfReader *)(arg1)->__iter__();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_VcfReader, 0 |  0 );
   return resultobj;
 fail:
@@ -9308,7 +9434,13 @@ SWIGINTERN PyObject *_wrap_VcfReader___next__(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader___next__" "', argument " "1"" of type '" "VcfReader *""'"); 
   }
   arg1 = reinterpret_cast< VcfReader * >(argp1);
-  result = (Record *) &(arg1)->__next__();
+  {
+    try {
+      result = (Record *) &(arg1)->__next__();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Record, 0 |  0 );
   return resultobj;
 fail:
@@ -9330,7 +9462,13 @@ SWIGINTERN PyObject *_wrap_delete_VcfReader(PyObject *SWIGUNUSEDPARM(self), PyOb
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_VcfReader" "', argument " "1"" of type '" "VcfReader *""'"); 
   }
   arg1 = reinterpret_cast< VcfReader * >(argp1);
-  delete arg1;
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
