@@ -1,5 +1,3 @@
-#include <QCoreApplication>
-#include <QDebug>
 #include <boost/algorithm/string.hpp>
 #include "vcfreader.h"
 int main(int argc, char *argv[])
