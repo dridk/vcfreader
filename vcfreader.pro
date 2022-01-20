@@ -1,21 +1,23 @@
 QT -= gui
-QT += testlib
+#QT += testlib
 CONFIG += c++11 console
 
 SOURCES+= src/utils.cpp \
+    src/main.cpp \
+    src/mtest.h \
     src/record.cpp \
     src/value.cpp \
-    src/test.cpp \
  \    #src/vcfreader.cpp
     src/vcfreader.cpp
 
 TARGET=testvcfreader
 
+LIBS+=-lgtest
+
 HEADERS +=\
     src/record.h \
     src/utils.h \
     src/value.h \
-    src/test.h \
  \    #src/vcfreader.h
     src/vcfreader.h
 
