@@ -3,116 +3,53 @@
 #include <vector>
 #include <zstr.hpp>
 #include <sstream>
-
+#include "record.h"
 using namespace std;
-/*
 
-class Value {
-public:
-
-*/
-
-// HELPER ... 
-
-bool is_digit(const string& str);
-
-
-enum Type: unsigned int;
-
-struct Value;
-struct Header;
-struct Record;
 class VcfReader;
+class Record;
+struct Header;
 
-enum Type: unsigned int
-{
-
-	Int = 0,
-	Float = 1,
-	Str = 2,
-	Bool = 3,
-	List = 4
-};
 struct Header
 {
 
-	string HeaderType;
-	string id;
-	uint dim;
-	string type;
-	string description;
-};
-
-struct Record
-{
-
-	string chrom;
-	unsigned long pos;
-	string id;
-	string ref;
-	string alt;
-	string qual;
-	string filter;
-
-	map<string,Value> infos;
-	vector< map<string,Value> >formats;
-	vector<string> format_names;
-
-	vector<string> get_info_keys() const;
-	vector<string> get_format_keys() const;
-
-	const Value& get_info(const string &key) const;
-    const Value& get_format(int index, const string& key) const;
-
-
-	// vector<Value> formats;
-};
-
-//Handy way to define any python key,value pair type
-struct Value
-{
-	uint dim; 
-	string type;
-	string key;
-	string value;
+    string HeaderType;
+    string id;
+    uint dim;
+    string type;
+    string description;
 };
 
 class VcfReader
 {
 
 public:
-	VcfReader(const string &filename);
+    VcfReader(const string &filename);
 
-	const Header &get_info(const string &key);
-	const Header &get_format(const string &key);
-	const vector<string> &get_samples();
+    const Header &get_info(const string &key);
+    const Header &get_format(const string &key);
+    const vector<string> &get_samples();
 
-	 vector<string> infos() const;
-	 vector<string> formats() const;
+    vector<string> infos() const;
+    vector<string> formats() const;
 
-	bool next();
+    bool next();
 
-	const Record &record() const;
-
-	VcfReader * __iter__();
-	const Record& __next__();
-
-
+    const Record& record() const;
 
 protected:
-	void readHeader();
-	void readRecord();
+    void readHeader();
+    void readRecord();
 
 private:
-	string mCurrentLine;
-	Record mCurrentRecord;
-	string mFilename;
-	map<string, Header> mFormats;
-	map<string, Header> mInfos;
-	map<string, Header> mFilter;
-	vector<string> mSamples;
+    string mCurrentLine;
+    Record mCurrentRecord;
+    string mFilename;
+    map<string, Header> mFormats;
+    map<string, Header> mInfos;
+    map<string, Header> mFilter;
+    vector<string> mSamples;
 
-	zstr::ifstream *mFile;
-
-	uint64_t mStartOffset;
+    zstr::ifstream *mFile;
+    uint64_t mStartOffset;
 };
