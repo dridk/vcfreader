@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <regex>
+
 #include "vcfreader.h"
 
 using namespace std;
@@ -14,8 +15,10 @@ VcfReader::VcfReader(const string &filename)
     : mFilename(filename), mStartOffset(0)
 {
 
-//    mFile = new zstr::ifstream(filename, ios::binary);
-//readHeader();
+    std::setlocale(LC_ALL, "en_US.UTF-8");
+    mFile = new zstr::ifstream(filename, ios::binary);
+    readHeader();
+
 }
 
 

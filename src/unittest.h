@@ -1,19 +1,22 @@
 #include "gtest/gtest.h"
 #include "value.h"
+#include "utils.h"
+
+#include <iostream>
 namespace
 {
 // The fixture for testing class Foo.
-class MTest : public ::testing::Test
+class ValueTest : public ::testing::Test
 {
 protected:
     // You can remove any or all of the following functions if its body
     // is empty.
-    MTest()
+    ValueTest()
     {
         std::setlocale(LC_ALL, "en_US.UTF-8");
 
     }
-    virtual ~MTest()
+    virtual ~ValueTest()
     {
         // You can do clean-up work that doesn't throw exceptions here.
     }
@@ -36,17 +39,53 @@ protected:
 };
 
 // Tests that Foo does Xyz.
-TEST_F(MTest, Test_Value)
+TEST_F(ValueTest, ToInt)
 {
-
     ASSERT_EQ(Value("324").toInt() , 324);
     ASSERT_EQ(Value("-324").toInt() , -324);
     ASSERT_EQ(Value("1").toBool() , true);
     ASSERT_EQ(Value("0").toBool() , false);
     ASSERT_EQ(Value("3.1").toDouble() , 3.1);
     ASSERT_EQ(Value("3,4").toDouble() , 3.4);
-    ASSERT_EQ(Value("sacha").toString() , "sacha");
+    ASSERT_EQ(Value("sacha").toString() , "sacha") << "marche pas";
+}
+
+
+
+// The fixture for testing class Foo.
+class VcfReaderTest : public ::testing::TestWithParam<std::string>
+{
+protected:
+
+
+
+};
+
+// Tests that Foo does Xyz.
+TEST_P(VcfReaderTest, Test_Value)
+{
+    auto test = GetParam();
+
+    ASSERT_FALSE(utils::file_exists(test));
+}
+
+
+
+INSTANTIATE_TEST_CASE_P(
+        VcfReaderTestFixture,
+        VcfReaderTest,
+        ::testing::Values(
+                "sacha","sacdsg"
+        ));
+
+
+
+
+
+
+
+
+
 
 
 }
-}  // namespace

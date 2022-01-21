@@ -4,8 +4,8 @@ CONFIG += c++11 console
 
 SOURCES+= src/utils.cpp \
     src/main.cpp \
-    src/mtest.h \
     src/record.cpp \
+    src/unittest.h \
     src/value.cpp \
  \    #src/vcfreader.cpp
     src/vcfreader.cpp

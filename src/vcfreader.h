@@ -1,5 +1,6 @@
 #include <string>
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <zstr.hpp>
 #include <sstream>
@@ -45,9 +46,9 @@ private:
     string mCurrentLine;
     Record mCurrentRecord;
     string mFilename;
-    map<string, Header> mFormats;
-    map<string, Header> mInfos;
-    map<string, Header> mFilter;
+    unordered_map<string, Header> mFormats;
+    unordered_map<string, Header> mInfos;
+    unordered_map<string, Header> mFilter;
     vector<string> mSamples;
 
     zstr::ifstream *mFile;

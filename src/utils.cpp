@@ -30,6 +30,13 @@ std::string toUpper(const std::string &str)
     return data;
 }
 
+
+bool file_exists (const std::string& name) {
+    std::fstream f(name.c_str());
+    return f.good();
+}
+
+
 };
 
 
