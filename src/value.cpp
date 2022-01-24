@@ -56,4 +56,16 @@ const std::string &Value::toString() const
     return mValue;
 }
 
+std::vector<Value> Value::toList() const
+{
+    std::vector<Value> results;
+    std::stringstream st(mValue);
+    std::string line;
+    while (getline(st, line, ','))
+        results.push_back(Value(line, mType));
+
+    return results;
+
+}
+
 

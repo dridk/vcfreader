@@ -8,11 +8,18 @@
 using namespace std;
 
 
+const std::unordered_map<std::string, Value::Type> VcfReader::StringType = {
+    {"String", Value::String},
+    {"Integer", Value::Integer},
+    {"Flag", Value::Bool},
+    {"Float", Value::Double}
+};
+
 
 //=============== VcfReader =============================
 
 VcfReader::VcfReader(const string &filename)
-    : mFilename(filename), mStartOffset(0)
+    : mFilename(filename), mStartLine(0)
 {
 
     std::setlocale(LC_ALL, "en_US.UTF-8");
@@ -21,11 +28,8 @@ VcfReader::VcfReader(const string &filename)
 
 }
 
-
-
 void VcfReader::readHeader()
 {
-
     string line;
     const regex info_format_regexp("##(\\w+)=<ID=([^,]+)\\s*,Number=([^,]+)\\s*,Type=([^,]+)\\s*,Description=\"([^\"]+)\">");
     const regex filter_regexp("##FILTER=<ID=([^,]+)\\s*,Description=\"([^\"]+)\">");
@@ -34,34 +38,32 @@ void VcfReader::readHeader()
     while (getline(*mFile, line))
     {
 
-        if (line.substr(0, 1) != "#")
-        {
-            break;
-        }
+        mStartLine ++;
 
         // Parse INFO columns
         smatch info_match;
         if (regex_search(line, info_match, info_format_regexp))
         {
 
-            auto header_type = info_match[1];
-            auto header_id = info_match[2];
 
             string dimension = info_match[3].str();
 
             Header header = Header{
                     info_match[1].str(), // Header Type
-                    info_match[2].str(),
-                    1,
-                    info_match[4].str(), // TYPE
-                    info_match[5].str(), // DESCRIPTION
+                    info_match[2].str(), // ID
+                    1, // NUMBER
+                    type_from_string(info_match[4].str()),
+                    info_match[5].str() // DESCRIPTION
         };
 
-        if (header_type == "FORMAT")
-            mFormats[header_id] = header;
+        if (header.headerType == "FORMAT")
+            mFormats[header.id] = header;
 
-        if (header_type == "INFO")
-            mInfos[header_id] = header;
+        if (header.headerType == "INFO")
+            mInfos[header.id] = header;
+
+        if (header.headerType == "INFO" && header.type == Value::Bool)
+            mFlagInfos.push_back(header.id);
     }
     // Parse SAMPLE columns
 
@@ -76,184 +78,165 @@ void VcfReader::readHeader()
         {
             mSamples.push_back(sampleName);
         }
+
+        //read header is now finished ..
+        break;
     }
 }
 }
 
+Value::Type VcfReader::type_from_string(const string &name)
+{
+    Value::Type type;
+    try {
+        type = StringType.at(name);
+    }  catch (std::out_of_range) {
+
+        type = Value::String;
+    }
+
+    return type;
+}
+
+
+const vector<string> &VcfReader::samples()
+{
+    return mSamples;
+}
+
+vector<string> VcfReader::info_keys() const
+{
+    vector<string> retval;
+    for (auto const& element : mInfos) {
+        retval.push_back(element.first);
+    }
+
+    return retval;
+}
+vector<string> VcfReader::format_keys() const
+{
+    vector<string> retval;
+    for (auto const& element : mFormats) {
+        retval.push_back(element.first);
+    }
+
+    return retval;
+
+}
+
+const Header &VcfReader::info(const string &key)
+{
+
+    return mInfos.at(key);
+}
+
+//--------------------------------------------------
+
+const Header &VcfReader::format(const string &key)
+{
+    return mFormats.at(key);
+}
 
 
 
 
 
 
+bool VcfReader::next()
+{
+    string line;
+    bool success = bool(getline(*mFile, mCurrentLine));
+    if (success)
+    {
+        readRecord();
+        return true;
+    }
 
-
-
-
+    return false;
+}
 ////--------------------------------------------------
 
-//const Header &VcfReader::get_info(const string &key)
-//{
-
-//    return mInfos.at(key);
-//}
-
+const Record &VcfReader::record() const
+{
+    return mCurrentRecord;
+}
 ////--------------------------------------------------
 
-//const Header &VcfReader::get_format(const string &key)
-//{
-//    return mFormats.at(key);
-//}
+void VcfReader::readRecord()
+{
 
-////--------------------------------------------------
+    stringstream line(mCurrentLine);
+    vector<string> fields;
 
-////--------------------------------------------------
+    string item;
+    while (getline(line, item, '\t'))
+        fields.push_back(item);
 
-//bool VcfReader::next()
-//{
-//    string line;
-//    bool success = bool(getline(*mFile, mCurrentLine));
+    mCurrentRecord.mChrom = fields[0];
+    mCurrentRecord.mPos = stol(fields[1]);
+    mCurrentRecord.mId = fields[2];
+    mCurrentRecord.mRef = fields[3];
+    mCurrentRecord.mAlt = fields[4];
+    mCurrentRecord.mQual = fields[5];
+    mCurrentRecord.mFilter = fields[6];
 
-//    if (success)
-//    {
-//        readRecord();
-//        return true;
-//    }
+    // Fill bool type with false value
+    for (const auto& info : mFlagInfos)
+        mCurrentRecord.mInfos[info] = Value("0", Value::Bool, 1);
 
-//    return false;
-//}
-////--------------------------------------------------
+    //Parse info field for this record
+    if (fields.size() > 7){
+        string info;
+        stringstream info_tokens(fields.at(7));
+        while (getline(info_tokens, info, ';'))
+        {
 
-//const Record &VcfReader::record() const
-//{
+            size_t delim_pos = info.find('=');
 
-//    return mCurrentRecord;
-//}
-////--------------------------------------------------
+            if (delim_pos != string::npos)
+            {
+                string _key = info.substr(0, delim_pos);
+                string value = info.substr(delim_pos + 1, string::npos);
+                Value::Type info_type = mInfos[_key].type;
+                uint number = mInfos[_key].number;
+                mCurrentRecord.mInfos[_key] = Value(value,info_type, number);
+            }
 
-//const vector<string> &VcfReader::get_samples()
-//{
-//    return mSamples;
-//}
-////--------------------------------------------------
+            else
+                mCurrentRecord.mInfos[info] = Value("1", Value::Bool, 1);
+        }
 
-//void VcfReader::readRecord()
-//{
+    }
 
-//    stringstream line(mCurrentLine);
-//    vector<string> fields;
+        // Parse format field
+        if (fields.size() > 9) {
+            string format;
+            stringstream format_tokens(fields.at(8));
+            while (getline(format_tokens, format,':')){
+                mCurrentRecord.mFormats.push_back(format);
+            }
 
-//    string item;
-//    while (getline(line, item, '\t'))
-//        fields.push_back(item);
+            // parse samples
+            for (uint i = 9 ; i<fields.size(); ++i)
+            {
+                stringstream sample_tokens(fields.at(i));
+                string sample_value;
+                map<string,Value> sample_data;
+                int format_index=0;
 
-//    mCurrentRecord.chrom = fields[0];
-//    mCurrentRecord.pos = stol(fields[1]);
-//    mCurrentRecord.id = fields[2];
-//    mCurrentRecord.ref = fields[3];
-//    mCurrentRecord.alt = fields[4];
-//    mCurrentRecord.qual = fields[5];
-//    mCurrentRecord.filter = fields[6];
+                SampleFormat sample_format;
+                while (getline(sample_tokens, sample_value,':')){
 
-//    //Parse info field for this record
-//    if (fields.size() > 7){
-//        string info;
-//        stringstream info_tokens(fields.at(7));
-//        while (getline(info_tokens, info, ';'))
-//        {
-//            size_t delim_pos = info.find('=');
-//            string _key = info.substr(0, delim_pos);
-//            string value = info.substr(delim_pos + 1, string::npos);
-//            string info_type = mInfos[_key].type;
-//            uint dim = mInfos[_key].dim;
+                    auto key = mCurrentRecord.mFormats[format_index];
+                    auto type = this->format(key).type;
 
-//            mCurrentRecord.infos[_key] = Valuetmp{dim, info_type, _key, value};
-//        }
+                    sample_format[key] = Value(sample_value, type);
 
-//    }
+                    format_index++;
+                }
+                mCurrentRecord.mSampleFormats.push_back(sample_format);
+            }
+        }
+}
 
-//    // Parse format field
-//    if (fields.size() > 9) {
-//        string format;
-//        stringstream format_tokens(fields.at(8));
-//        while (getline(format_tokens, format,':')){
-//            mCurrentRecord.format_names.push_back(format);
-//        }
-
-//        // parse samples
-//        for (uint i = 9 ; i<fields.size(); ++i)
-//        {
-//            stringstream sample_tokens(fields.at(i));
-//            string sample_value;
-//            map<string,Valuetmp> sample_data;
-//            int format_index=0;
-
-//            while (getline(sample_tokens, sample_value,':')){
-
-//                auto key = mCurrentRecord.format_names[format_index];
-//                auto format = mFormats[key];
-//                sample_data[key] = Valuetmp{format.dim,format.type, key, sample_value};
-//                format_index++;
-
-//            }
-
-//            mCurrentRecord.formats.push_back(sample_data);
-
-//        }
-//    }
-//}
-////--------------------------------------------------
-
-
-////--------------------------------------------------
-
-//vector<string> VcfReader::infos() const
-//{
-//    vector<string> retval;
-//    for (auto const& element : mInfos) {
-//        retval.push_back(element.first);
-//    }
-
-//    return retval;
-//}
-//vector<string> VcfReader::formats() const
-//{
-//    vector<string> retval;
-//    for (auto const& element : mFormats) {
-//        retval.push_back(element.first);
-//    }
-
-//    return retval;
-
-//}
-////=============== Record =============================
-
-//vector<string> Record::get_info_keys() const
-//{
-//    vector<string> retval;
-//    for (auto const& element : infos) {
-//        retval.push_back(element.first);
-//    }
-
-//    return retval;
-//}
-
-//vector<string> Record::get_format_keys() const
-//{
-//    return format_names;
-//}
-
-//const Valuetmp &Record::get_info(const string &key) const
-//{
-//    return infos.at(key);
-//}
-
-//const Valuetmp &Record::get_format(int index, const string& key) const
-//{
-
-//    return formats[index].at(key);
-
-
-
-//}
 

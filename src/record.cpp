@@ -39,17 +39,16 @@ const std::string &Record::filter() const
     return mFilter;
 }
 
-Record Record::from_line(const std::string &line)
+const Value &Record::info(const std::string &name)
 {
 
-    Record rec;
-    rec.mChrom = "chr1";
+    return mInfos.at(name);
 
+}
 
-    return rec;
-
-
-
+const Value &Record::format(const std::string &name, int sample)
+{
+    return mSampleFormats.at(sample).at(name);
 }
 
 //const vector<string, Value> &Record::infos() const

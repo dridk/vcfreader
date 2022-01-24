@@ -6,9 +6,13 @@
 
 class Value;
 class Record;
+class VcfReader;
+
+typedef std::map<std::string, Value> SampleFormat;
 
 class Record
 {
+friend VcfReader;
 public:
     Record();
 
@@ -20,10 +24,9 @@ public:
     const std::string &qual() const;
     const std::string &filter() const;
 
-    static Record from_line(const std::string& line);
 
-
-
+    const Value& info(const std::string& name);
+    const Value& format(const std::string& name, int sample=0);
 
 private:
     std::string mChrom;
@@ -34,7 +37,9 @@ private:
     std::string mQual;
     std::string mFilter;
     std::map<std::string, Value> mInfos;
-    std::map<std::string, Value> mFormats;
+
+    std::vector<std::string> mFormats;
+    std::vector<SampleFormat> mSampleFormats;
 
 
 };
