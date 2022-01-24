@@ -8530,6 +8530,35 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Value_type_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Value *arg1 = (Value *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Value, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_type_name" "', argument " "1"" of type '" "Value const *""'"); 
+  }
+  arg1 = reinterpret_cast< Value * >(argp1);
+  {
+    try {
+      result = ((Value const *)arg1)->type_name();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_Value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Value *arg1 = (Value *) 0 ;
@@ -9333,6 +9362,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "Value_toString", _wrap_Value_toString, METH_O, NULL},
 	 { "Value_toList", _wrap_Value_toList, METH_O, NULL},
 	 { "Value_type", _wrap_Value_type, METH_O, NULL},
+	 { "Value_type_name", _wrap_Value_type_name, METH_O, NULL},
 	 { "delete_Value", _wrap_delete_Value, METH_O, NULL},
 	 { "Value_swigregister", Value_swigregister, METH_O, NULL},
 	 { "Value_swiginit", Value_swiginit, METH_VARARGS, NULL},

@@ -1,5 +1,11 @@
 #include "value.h"
 
+//const std::unordered_map<Value::Type, std::string> Value::TypeNames = {
+//    {Value::Integer, "Integer"},
+//    {Value::Double, "Double"},
+//    {Value::Bool, "Bool"},
+//    {Value::String, "String"},
+//};
 
 
 Value::Value( const std::string &value, Type type, uint dim)
@@ -72,5 +78,11 @@ Value::Type Value::type() const
 {
     return mType;
 }
+
+std::string Value::type_name() const
+{
+    return Value::TypeNames.at(mType);
+}
+
 
 

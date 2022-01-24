@@ -294,6 +294,9 @@ class Value(object):
 
     def type(self):
         return _vcfreader.Value_type(self)
+
+    def type_name(self):
+        return _vcfreader.Value_type_name(self)
     __swig_destroy__ = _vcfreader.delete_Value
 
 # Register Value in _vcfreader:

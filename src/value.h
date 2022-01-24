@@ -6,6 +6,7 @@
 #include <sstream>
 #include <algorithm>
 #include <vector>
+#include <unordered_map>
 #include <cctype>
 
 #include "utils.h"
@@ -37,11 +38,16 @@ public:
 
     Type type() const;
 
+     std::string type_name() const;
+
 private:
     std::string mKey;
     std::string mValue;
     Type mType;
     uint mDim;
+
+    //const static std::unordered_map<Value::Type, std::string> TypeNames;
+
 };
 
 #endif // VALUE_H
