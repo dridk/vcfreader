@@ -68,4 +68,9 @@ std::vector<Value> Value::toList() const
 
 }
 
+Value::Type Value::type() const
+{
+    return mType;
+}
+
 

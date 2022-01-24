@@ -2,6 +2,7 @@
 #define RECORD_H
 #include <string>
 #include <vector>
+#include <map>
 #include "value.h"
 
 class Value;

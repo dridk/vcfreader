@@ -8,8 +8,6 @@
 #include <vector>
 #include <cctype>
 
-#include <QDebug>
-
 #include "utils.h"
 
 class Value
@@ -34,6 +32,10 @@ public:
 
     std::vector<Value> toList() const;
 
+
+
+
+    Type type() const;
 
 private:
     std::string mKey;

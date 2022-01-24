@@ -12,12 +12,18 @@ ZLIB_SRC =['zlib/contrib/minizip/zip.c', 'zlib/contrib/minizip/unzip.c', 'zlib/c
 
 #SOURCE.append("zlib/contrib/minizip/iowin32.c")
 
+SOURCES = [s for s in glob("src/*.cpp") if "main.cpp" not in s]
+
+
 vcfreader_module = Extension('_vcfreader',
-	sources=["src/vcfreader.cpp",
+	sources=[*SOURCES,
 	"src/vcfreader_wrap.cxx"] + ZLIB_SRC ,  
 	
-	include_dirs=['zstr','zlib','src'])
+	include_dirs=['zstr','zlib','src'],
+    extra_compile_args=['-std=c++11'],
 
+
+    )
 
 
 setup(

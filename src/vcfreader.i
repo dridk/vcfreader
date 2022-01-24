@@ -18,34 +18,35 @@ using namespace std;
 }
 
 
+
+
 %typemap(out) Value& {
 	
-	$result = PyString_FromString($1->value.c_str());
-
-	if ($1->dim == 1)
+	switch ($1->type())
 	{
-		if ($1->type == "Integer")
-			$result = PyInt_FromLong(stoi($1->value));
 
-		if ($1->type == "Float")
-			$result = PyFloat_FromDouble(stod($1->value));
+	case Value::Double:
+		$result = PyFloat_FromDouble($1->toDouble());	
+		break;
+
+	case Value::Integer:
+		$result = PyInt_FromLong($1->toInt());	
+		break;
+
+	case Value::Bool:
+		$result = $1->toBool() ? Py_True : Py_False;	
+		break;
+
+	default:
+		$result = PyString_FromString($1->toString().c_str());
+	
+
 	}
 
-	if ($1->dim > 1)
-	{
-		auto tmp = PyList_New($1->dim);
+	
 
-		for (uint i=0; i< $1->dim; ++i)
-		{
-			if ($1->type == "Integer")
-				PyList_SET_ITEM(tmp,i,PyInt_FromLong(stoi($1->value)));
 
-			if ($1->type == "Float")
-				PyList_SET_ITEM(tmp,i,PyFloat_FromDouble(stod($1->value)));
-		}
 
-    $result = SWIG_Python_AppendOutput($result,tmp);
-	}
 
 }
 
@@ -53,10 +54,14 @@ using namespace std;
 
 %{
 
+#include "record.h"
+#include "value.h"
 #include "vcfreader.h"
+
 #include "zstr.hpp"
 
 	%}
 
-
-	%include  "vcfreader.h"
+%include "record.h"
+%include "value.h"
+%include  "vcfreader.h"
