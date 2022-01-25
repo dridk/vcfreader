@@ -36,6 +36,18 @@ bool file_exists (const std::string& name) {
     return f.good();
 }
 
+std::vector<std::string> split(const std::string &str, char sep)
+{
+    std::stringstream f(str);
+    std::string s;
+    std::vector<std::string> results;
+     while (getline(f, s, sep)) {
+         results.push_back(s);
+     }
+
+     return results;
+}
+
 
 
 };

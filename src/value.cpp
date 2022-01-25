@@ -12,6 +12,9 @@ Value::Value( const std::string &value, Type type, uint dim)
     :mValue(value),mType(type),mDim(dim)
 {
 
+    if (value == "." or value == "")
+        mType = Type::None;
+
 }
 
 int Value::toInt() const
@@ -81,7 +84,18 @@ Value::Type Value::type() const
 
 std::string Value::type_name() const
 {
-    return Value::TypeNames.at(mType);
+    if (mType == Value::String)
+        return "String";
+    if (mType == Value::Integer)
+        return "Integer";
+    if (mType == Value::Double)
+        return "Double";
+    if (mType == Value::Bool)
+        return "Bool";
+    if (mType == Value::None)
+        return "None";
+
+    return "None";
 }
 
 

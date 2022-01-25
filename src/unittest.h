@@ -72,6 +72,7 @@ TEST_F(VcfReaderTest, Test_Get_Samples)
     ASSERT_TRUE(reader.samples() == expected);
 
 
+
 }
 
 TEST_F(VcfReaderTest, Test_meta)
@@ -121,6 +122,19 @@ TEST_F(VcfReaderTest, Test_read_first_line)
 
   ASSERT_TRUE(record.format("GT", 0).toString() == "0/0");
   ASSERT_TRUE(record.format("GT", 1).toString() == "0/1");
+
+
+}
+
+
+TEST_F(VcfReaderTest, TestFile)
+{
+    auto reader = VcfReader("/home/sacha/Dev/cutevariant/examples/test.vep.vcf");
+
+    while (reader.next())
+    {
+        cout<<reader.record().chrom();
+    }
 
 
 }

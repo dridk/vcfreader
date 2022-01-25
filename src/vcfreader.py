@@ -273,6 +273,7 @@ class Value(object):
     Integer = _vcfreader.Value_Integer
     Double = _vcfreader.Value_Double
     Bool = _vcfreader.Value_Bool
+    _None = _vcfreader.Value__None
 
     def __init__(self, *args):
         _vcfreader.Value_swiginit(self, _vcfreader.new_Value(*args))

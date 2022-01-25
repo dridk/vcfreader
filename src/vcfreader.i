@@ -37,7 +37,11 @@ using namespace std;
 		$result = $1->toBool() ? Py_True : Py_False;	
 		break;
 
-	default:
+	case Value::None:
+		$result = Py_None;
+		break;
+
+	case Value::String:
 		$result = PyString_FromString($1->toString().c_str());
 	
 

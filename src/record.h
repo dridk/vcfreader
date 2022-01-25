@@ -26,8 +26,8 @@ public:
     const std::string &filter() const;
 
 
-    const Value& info(const std::string& name);
-    const Value& format(const std::string& name, int sample=0);
+    const Value& info(const std::string& name) const;
+    const Value& format(const std::string& name, int sample=0) const;
 
 private:
     std::string mChrom;

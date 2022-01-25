@@ -4,6 +4,7 @@
 #include <vector>
 #include <zstr.hpp>
 #include <sstream>
+#include <queue>
 #include "record.h"
 using namespace std;
 
@@ -16,7 +17,7 @@ struct Header
 {
     string headerType;
     string id;
-    uint number;
+    string number;
     Value::Type type;
     string description;
 };
@@ -41,10 +42,14 @@ public:
 
 protected:
     void readHeader();
-    void readRecord();
+    Record readRecord(int alt_index = 0);
 
 
 private:
+
+    int count_alt();
+
+
     string mCurrentLine;
     Record mCurrentRecord;
     string mFilename;
@@ -55,8 +60,11 @@ private:
 
     vector<string> mFlagInfos;
 
+    queue<Record> mRecordsQueue;
 
-    static const std::unordered_map<std::string, Value::Type> StringType;
+    static const std::unordered_map<std::string, Value::Type> StringToTypeMap;
+    static const std::unordered_map<std::string, int> NumberToIntMap;
+
 
     zstr::ifstream *mFile;
     uint64_t mStartLine;

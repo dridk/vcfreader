@@ -18,7 +18,8 @@ public:
         String,
         Integer,
         Double,
-        Bool
+        Bool,
+        None
     };
 
     Value(const std::string& value = std::string(),

@@ -39,14 +39,14 @@ const std::string &Record::filter() const
     return mFilter;
 }
 
-const Value &Record::info(const std::string &name)
+const Value &Record::info(const std::string &name) const
 {
 
     return mInfos.at(name);
 
 }
 
-const Value &Record::format(const std::string &name, int sample)
+const Value &Record::format(const std::string &name, int sample) const
 {
     return mSampleFormats.at(sample).at(name);
 }

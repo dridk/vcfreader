@@ -7887,7 +7887,11 @@ SWIGINTERN PyObject *_wrap_Record_info(PyObject *SWIGUNUSEDPARM(self), PyObject 
       resultobj = result->toBool() ? Py_True : Py_False;	
       break;
       
-    default:
+    case Value::None:
+      resultobj = Py_None;
+      break;
+      
+    case Value::String:
       resultobj = PyString_FromString(result->toString().c_str());
       
       
@@ -7963,7 +7967,11 @@ SWIGINTERN PyObject *_wrap_Record_format__SWIG_0(PyObject *SWIGUNUSEDPARM(self),
       resultobj = result->toBool() ? Py_True : Py_False;	
       break;
       
-    default:
+    case Value::None:
+      resultobj = Py_None;
+      break;
+      
+    case Value::String:
       resultobj = PyString_FromString(result->toString().c_str());
       
       
@@ -8031,7 +8039,11 @@ SWIGINTERN PyObject *_wrap_Record_format__SWIG_1(PyObject *SWIGUNUSEDPARM(self),
       resultobj = result->toBool() ? Py_True : Py_False;	
       break;
       
-    default:
+    case Value::None:
+      resultobj = Py_None;
+      break;
+      
+    case Value::String:
       resultobj = PyString_FromString(result->toString().c_str());
       
       
@@ -8719,11 +8731,10 @@ fail:
 SWIGINTERN PyObject *_wrap_Header_number_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Header *arg1 = (Header *) 0 ;
-  uint arg2 ;
+  std::string *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
   PyObject *swig_obj[2] ;
   
   if (!SWIG_Python_UnpackTuple(args, "Header_number_set", 2, 2, swig_obj)) SWIG_fail;
@@ -8733,22 +8744,22 @@ SWIGINTERN PyObject *_wrap_Header_number_set(PyObject *SWIGUNUSEDPARM(self), PyO
   }
   arg1 = reinterpret_cast< Header * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_uint,  0  | 0);
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Header_number_set" "', argument " "2"" of type '" "uint""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Header_number_set" "', argument " "2"" of type '" "uint""'");
-    } else {
-      uint * temp = reinterpret_cast< uint * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Header_number_set" "', argument " "2"" of type '" "std::string const &""'"); 
     }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Header_number_set" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
   }
-  if (arg1) (arg1)->number = arg2;
+  if (arg1) (arg1)->number = *arg2;
   resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
 }
 
@@ -8759,7 +8770,7 @@ SWIGINTERN PyObject *_wrap_Header_number_get(PyObject *SWIGUNUSEDPARM(self), PyO
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  uint result;
+  std::string *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -8768,8 +8779,8 @@ SWIGINTERN PyObject *_wrap_Header_number_get(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Header_number_get" "', argument " "1"" of type '" "Header *""'"); 
   }
   arg1 = reinterpret_cast< Header * >(argp1);
-  result =  ((arg1)->number);
-  resultobj = SWIG_NewPointerObj((new uint(static_cast< const uint& >(result))), SWIGTYPE_p_uint, SWIG_POINTER_OWN |  0 );
+  result = (std::string *) & ((arg1)->number);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
   return resultobj;
 fail:
   return NULL;
@@ -10219,6 +10230,7 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "Value_Integer",SWIG_From_int(static_cast< int >(Value::Integer)));
   SWIG_Python_SetConstant(d, "Value_Double",SWIG_From_int(static_cast< int >(Value::Double)));
   SWIG_Python_SetConstant(d, "Value_Bool",SWIG_From_int(static_cast< int >(Value::Bool)));
+  SWIG_Python_SetConstant(d, "Value__None",SWIG_From_int(static_cast< int >(Value::None)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else
