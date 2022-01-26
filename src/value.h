@@ -19,33 +19,31 @@ public:
         Integer,
         Double,
         Bool,
-        None
+        Invalid
     };
 
     Value(const std::string& value = std::string(),
           Type type = Type::String,
-          uint dim = 1);
+          unsigned int dim = 1);
 
     int toInt() const;
     double toDouble() const;
     bool toBool() const;
 
     const std::string& toString() const;
-
     std::vector<Value> toList() const;
-
-
-
 
     Type type() const;
 
      std::string type_name() const;
 
+     unsigned int dim() const;
+
 private:
     std::string mKey;
     std::string mValue;
     Type mType;
-    uint mDim;
+    unsigned int mDim;
 
     //const static std::unordered_map<Value::Type, std::string> TypeNames;
 

@@ -7,65 +7,81 @@
 
 using namespace std;
 
-%template(StringVector) vector<string>;
-
-%exception {
-  try {
-    $action
-  } catch (const std::exception& e) {
-    SWIG_exception(SWIG_RuntimeError, e.what());
-  }
-}
-
-
-
-
-%typemap(out) Value& {
-	
-	switch ($1->type())
-	{
-
-	case Value::Double:
-		$result = PyFloat_FromDouble($1->toDouble());	
-		break;
-
-	case Value::Integer:
-		$result = PyInt_FromLong($1->toInt());	
-		break;
-
-	case Value::Bool:
-		$result = $1->toBool() ? Py_True : Py_False;	
-		break;
-
-	case Value::None:
-		$result = Py_None;
-		break;
-
-	case Value::String:
-		$result = PyString_FromString($1->toString().c_str());
-	
-
-	}
-
-	
-
-
-
-
-}
-
-
-
 %{
 
 #include "record.h"
 #include "value.h"
 #include "vcfreader.h"
-
 #include "zstr.hpp"
+
+	PyObject * value_to_py(Value* value)
+	{
+		PyObject * result = Py_None;
+
+		switch (value->type())
+		{
+			case Value::Double:
+			result = PyFloat_FromDouble(value->toDouble());	
+			break;
+
+			case Value::Integer:
+			result = PyInt_FromLong(value->toInt());	
+			break;
+
+			case Value::Bool:
+			result = value->toBool() ? Py_True : Py_False;	
+			break;
+
+			case Value::Invalid:
+			result = Py_None;
+			break;
+
+			case Value::String:
+			result = PyString_FromString(value->toString().c_str());
+		}
+
+		return result;
+	}
 
 	%}
 
-%include "record.h"
-%include "value.h"
-%include  "vcfreader.h"
+
+	%typemap(out) Value& {
+
+		
+		if ($1->dim() == 1)
+			$result = value_to_py($1);
+
+		else
+		{
+			vector<Value> value_list = $1->toList();
+			PyObject *pylist = PyTuple_New(value_list.size());
+
+			for (auto i=0; i< value_list.size(); ++i)
+				PyTuple_SetItem(pylist, i, value_to_py(&value_list[i]));
+
+			$result = pylist;
+		}
+	}
+
+
+	%include "record.h"
+	%include "value.h"
+	%include  "vcfreader.h"
+
+	
+
+	%exception {
+		try {
+			$action
+		} catch (const std::exception& e) {
+			SWIG_exception(SWIG_RuntimeError, e.what());
+		}
+	}
+
+
+
+
+
+	%template(StringVector) vector<string>;
+	%template(ListValue) vector<Value>;

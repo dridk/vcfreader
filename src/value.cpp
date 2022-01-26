@@ -8,12 +8,12 @@
 //};
 
 
-Value::Value( const std::string &value, Type type, uint dim)
+Value::Value( const std::string &value, Type type, unsigned int dim)
     :mValue(value),mType(type),mDim(dim)
 {
 
     if (value == "." or value == "")
-        mType = Type::None;
+        mType = Type::Invalid;
 
 }
 
@@ -92,10 +92,15 @@ std::string Value::type_name() const
         return "Double";
     if (mType == Value::Bool)
         return "Bool";
-    if (mType == Value::None)
+    if (mType == Value::Invalid)
         return "None";
 
     return "None";
+}
+
+unsigned int Value::dim() const
+{
+    return mDim;
 }
 
 
