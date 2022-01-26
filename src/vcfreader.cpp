@@ -29,6 +29,7 @@ VcfReader::VcfReader(const string &filename)
 
 }
 
+
 void VcfReader::parse_header()
 {
     string line;
@@ -133,6 +134,8 @@ bool VcfReader::next()
             mRecordsQueue.push(parse_record(i));
     }
 
+
+
     mCurrentRecord = mRecordsQueue.front();
     mRecordsQueue.pop();
 
@@ -178,18 +181,19 @@ Record VcfReader::parse_record(int alt_index)
             else
             {
                 string key = info.substr(0, delim_pos); // key = DP
-                string value = info.substr(delim_pos + 1, string::npos); // value = 5
+                string raw_value = info.substr(delim_pos + 1, string::npos); // value = 5
                 Value::Type info_type = mInfos[key].type; // type = Integer
                 string number = mInfos[key].number; // Number = 1
 
+                string value = raw_value;
                 // get dimension number : 1 as default
                 uint dim = utils::is_number(number) ? stoi(number) : 1;
 
                 if (number == "A")
-                    value = utils::split(value,',')[alt_index];
+                    value = utils::split(raw_value,',')[alt_index];
 
                 if (number == "R"){
-                    auto list_val = utils::split(value,',');
+                    auto list_val = utils::split(raw_value,',');
                     value = list_val[0] + "," + list_val[alt_index+1];
                 }
 

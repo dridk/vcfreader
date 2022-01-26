@@ -28,6 +28,7 @@ class VcfReader
 public:
     VcfReader(const string &filename);
 
+
     const Header &info(const string &key);
     const Header &format(const string &key);
     const vector<string> &samples();

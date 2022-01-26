@@ -3339,11 +3339,13 @@ SWIG_AsVal_ptrdiff_t (PyObject * obj, ptrdiff_t *val)
 
 	PyObject * value_to_py(Value* value)
 	{
-		PyObject * result = Py_None;
+
+		PyObject * result;
 
 		switch (value->type())
 		{
-			case Value::Double:
+
+ 		 case Value::Double:
 			result = PyFloat_FromDouble(value->to_double());	
 			break;
 
@@ -3353,14 +3355,18 @@ SWIG_AsVal_ptrdiff_t (PyObject * obj, ptrdiff_t *val)
 
 			case Value::Bool:
 			result = value->to_bool() ? Py_True : Py_False;	
-			break;
-
-			case Value::Invalid:
-			result = Py_None;
+			Py_INCREF(result);
 			break;
 
 			case Value::String:
 			result = PyString_FromString(value->to_string().c_str());
+			break;
+
+			default:
+				result = Py_None;
+				Py_INCREF(Py_None);
+				break;
+
 		}
 
 		return result;
