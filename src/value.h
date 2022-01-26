@@ -44,12 +44,18 @@ public:
           Type type = Type::String,
           unsigned int dim = 1);
 
+    Value(long value);
+    Value(double value);
+    Value(float value);
+    Value(bool value);
+
     //Conversion function
     int to_int() const;
     double to_double() const;
     bool to_bool() const;
     const std::string& to_string() const;
     std::vector<Value> to_list() const;
+
 
     Type type() const;
     std::string type_name() const;

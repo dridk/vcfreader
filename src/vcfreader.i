@@ -85,9 +85,6 @@ using namespace std;
 	%}
 }
 	
-
-
-
 	%exception {
 		try {
 			$action

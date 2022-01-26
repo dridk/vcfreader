@@ -10,6 +10,14 @@ int main(int argc, char **argv)
 //        cout<<reader.record().format("GL").toList().size()<<endl;
 //    }
 
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+//    ::testing::InitGoogleTest(&argc, argv);
+//    return RUN_ALL_TESTS();
+
+    std::unordered_map<std::string, int> test = {{"salut",34}, {"boby",34}};
+
+    for (auto i : utils::get_keys(test))
+        cout<<i<<endl;
+
+
+
 }

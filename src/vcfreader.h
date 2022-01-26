@@ -38,11 +38,11 @@ public:
     bool next();
 
     const Record& record() const;
-    static Value::Type type_from_string(const std::string& name);
 
 protected:
-    void readHeader();
-    Record readRecord(int alt_index = 0);
+    void parse_header();
+    Record parse_record(int alt_index = 0);
+    static Value::Type type_from_string(const std::string& name);
 
 
 private:
@@ -63,7 +63,6 @@ private:
     queue<Record> mRecordsQueue;
 
     static const std::unordered_map<std::string, Value::Type> StringToTypeMap;
-    static const std::unordered_map<std::string, int> NumberToIntMap;
 
 
     zstr::ifstream *mFile;

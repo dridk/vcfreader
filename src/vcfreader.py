@@ -244,10 +244,6 @@ class VcfReader(object):
     def record(self):
         return _vcfreader.VcfReader_record(self)
 
-    @staticmethod
-    def type_from_string(name):
-        return _vcfreader.VcfReader_type_from_string(name)
-
 
     def __iter__(self):
     	return self 
@@ -262,9 +258,6 @@ class VcfReader(object):
 
 # Register VcfReader in _vcfreader:
 _vcfreader.VcfReader_swigregister(VcfReader)
-
-def VcfReader_type_from_string(name):
-    return _vcfreader.VcfReader_type_from_string(name)
 
 class StringVector(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <locale>
 #include <vector>
+#include <unordered_map>
 #include <sstream>
 #include <fstream>
 
@@ -44,7 +45,20 @@ bool file_exists (const std::string& filename);
 
 std::vector<std::string> split(const std::string& str, char sep);
 
-template <typename T>
+//----------- TEMPLATE FCT -------------------------------
+template <class T, class K>
+std::vector<T> get_keys(const std::unordered_map<T,K>& map){
+
+    std::vector<T> results;
+
+    for (const auto& v : map)
+        results.push_back(v.first);
+
+    return results;
+
+}
+//---------------------------------------------------------
+template <class T>
 bool contains(const std::vector<T>& c, const T& key ){
     return std::find(c.begin(), c.end(), key) != c.end();
 }

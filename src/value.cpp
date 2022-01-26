@@ -9,6 +9,34 @@ Value::Value( const std::string &value, Type type, unsigned int dim)
     if (value == "." or value == "")
         mType = Type::Invalid;
 }
+
+Value::Value(long value)
+{
+    mType = Type::Integer;
+    mDim = 1;
+    mValue = std::to_string(value);
+}
+
+Value::Value(double value)
+{
+    mType = Type::Double;
+    mDim = 1;
+    mValue = std::to_string(value);
+}
+
+Value::Value(float value)
+{
+    mType = Type::Double;
+    mDim = 1;
+    mValue = std::to_string(value);
+}
+
+Value::Value(bool value)
+{
+    mType = Type::Bool;
+    mDim = 1;
+    mValue = std::to_string(value);
+}
 //--------------------------------------------------------------------
 int Value::to_int() const
 {

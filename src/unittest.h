@@ -71,6 +71,9 @@ TEST_F(VcfReaderTest, Test_Get_Samples)
     auto reader = VcfReader(filename);
     ASSERT_TRUE(reader.samples() == expected);
 
+    std::unordered_map<std::string, int> test = {{"salut",34}, {"boby",34}};
+
+    utils::get_keys(test);
 
 
 }

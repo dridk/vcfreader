@@ -10,18 +10,12 @@ using namespace std;
 
 const std::unordered_map<std::string, Value::Type> VcfReader::StringToTypeMap = {
     {"String", Value::String},
+    {"Character", Value::String},
     {"Integer", Value::Integer},
     {"Flag", Value::Bool},
     {"Float", Value::Double}
 };
 
-
-const std::unordered_map<std::string, int> VcfReader::NumberToIntMap = {
-    {".", 1},
-    {"A", -1},
-    {"G", -2},
-    {"R", -3}
-};
 
 //=============== VcfReader =============================
 
@@ -31,11 +25,11 @@ VcfReader::VcfReader(const string &filename)
 
     std::setlocale(LC_ALL, "en_US.UTF-8");
     mFile = new zstr::ifstream(filename, ios::binary);
-    readHeader();
+    parse_header();
 
 }
 
-void VcfReader::readHeader()
+void VcfReader::parse_header()
 {
     string line;
     const regex info_format_regexp("##(\\w+)=<ID=([^,]+)\\s*,Number=([^,]+)\\s*,Type=([^,]+)\\s*,Description=\"([^\"]+)\">");
@@ -44,25 +38,19 @@ void VcfReader::readHeader()
 
     while (getline(*mFile, line))
     {
-
         mStartLine ++;
-
-        // Parse INFO columns
         smatch info_match;
         if (regex_search(line, info_match, info_format_regexp))
         {
 
-
             string dimension = info_match[3].str();
-
             string number = info_match[3];
-
 
             Header header = Header{
                     info_match[1].str(), // Header Type
                     info_match[2].str(), // ID
                     info_match[3].str(), // NUMBER
-                    type_from_string(info_match[4].str()),
+                    type_from_string(info_match[4].str()), //TYPE
                     info_match[5].str() // DESCRIPTION
         };
 
@@ -76,20 +64,13 @@ void VcfReader::readHeader()
             mFlagInfos.push_back(header.id);
     }
     // Parse SAMPLE columns
-
     smatch sample_match;
     if (regex_search(line, sample_match, sample_regexp))
     {
         auto sample_names = sample_match[1];
-        stringstream all_samples(sample_names.str());
+        stringstream sample_names_ss(sample_names.str());
 
-        string sampleName;
-        while (getline(all_samples, sampleName, '\t'))
-        {
-            mSamples.push_back(sampleName);
-        }
-
-        //read header is now finished ..
+        mSamples = utils::split(sample_names.str(),'\t');
         break;
     }
 }
@@ -116,27 +97,15 @@ const vector<string> &VcfReader::samples()
 
 vector<string> VcfReader::info_keys() const
 {
-    vector<string> retval;
-    for (auto const& element : mInfos) {
-        retval.push_back(element.first);
-    }
-
-    return retval;
+    return utils::get_keys(mInfos);
 }
 vector<string> VcfReader::format_keys() const
 {
-    vector<string> retval;
-    for (auto const& element : mFormats) {
-        retval.push_back(element.first);
-    }
-
-    return retval;
-
+    return utils::get_keys(mFormats);
 }
 
 const Header &VcfReader::info(const string &key)
 {
-
     return mInfos.at(key);
 }
 
@@ -145,14 +114,9 @@ const Header &VcfReader::info(const string &key)
 const Header &VcfReader::format(const string &key)
 {
 
-        return mFormats.at(key);
+    return mFormats.at(key);
 
 }
-
-
-
-
-
 
 bool VcfReader::next()
 {
@@ -166,11 +130,11 @@ bool VcfReader::next()
             return false;
 
         for (int i=0; i<count_alt(); i++)
-            mRecordsQueue.push(readRecord(i));
+            mRecordsQueue.push(parse_record(i));
     }
 
-        mCurrentRecord = mRecordsQueue.front();
-        mRecordsQueue.pop();
+    mCurrentRecord = mRecordsQueue.front();
+    mRecordsQueue.pop();
 
 
 
@@ -184,100 +148,93 @@ const Record &VcfReader::record() const
 }
 ////--------------------------------------------------
 
-Record VcfReader::readRecord(int alt_index)
+Record VcfReader::parse_record(int alt_index)
 {
     Record record;
-    stringstream line(mCurrentLine);
-    vector<string> fields;
-
-    string item;
-    while (getline(line, item, '\t'))
-        fields.push_back(item);
+    vector<string> fields = utils::split(mCurrentLine, '\t');
 
     record.mChrom = fields[0];
     record.mPos = stol(fields[1]);
     record.mId = fields[2];
     record.mRef = fields[3];
-
     record.mAlt = utils::split(fields[4],',')[alt_index];
-
     record.mQual = fields[5];
     record.mFilter = fields[6];
 
-
-    // Fill bool type with false value
     for (const auto& info : mFlagInfos)
-        record.mInfos[info] = Value("0", Value::Bool, 1);
+        record.mInfos[info] = Value(false);
 
     //Parse info field for this record
     if (fields.size() > 7){
-        string info;
-        stringstream info_tokens(fields.at(7));
-        while (getline(info_tokens, info, ';'))
-        {
 
+        for (const string& info : utils::split(fields.at(7),';'))
+        {
+              // Example DP=5 with DP as Integer with Number = 1
             size_t delim_pos = info.find('=');
 
-            if (delim_pos != string::npos)
+            if (delim_pos == string::npos) // no symbol "=" . It is a flag
+                record.mInfos[info] = Value(true);
+
+            else
             {
-                string _key = info.substr(0, delim_pos);
-                string value = info.substr(delim_pos + 1, string::npos);
-                Value::Type info_type = mInfos[_key].type;
+                string key = info.substr(0, delim_pos); // key = DP
+                string value = info.substr(delim_pos + 1, string::npos); // value = 5
+                Value::Type info_type = mInfos[key].type; // type = Integer
+                string number = mInfos[key].number; // Number = 1
 
-
-                string number = mInfos[_key].number; // 1,2,3
-
-                uint dim =1;
-                if (utils::is_number(number))
-                    dim = stoi(number);
+                // get dimension number : 1 as default
+                uint dim = utils::is_number(number) ? stoi(number) : 1;
 
                 if (number == "A")
                     value = utils::split(value,',')[alt_index];
 
-                if (number == ".")
+                if (number == "R"){
+                    auto list_val = utils::split(value,',');
+                    value = list_val[0] + "," + list_val[alt_index+1];
+                }
+
+                if (number == "." || number == "G")
                     dim = utils::split(value,',').size();
 
 
-                record.mInfos[_key] = Value(value,info_type, dim);
+                record.mInfos[key] = Value(value,info_type, dim);
             }
-
-            else
-                record.mInfos[info] = Value("1", Value::Bool, 1);
         }
-
     }
 
-    // Parse format field
-    if (fields.size() > 9) {
-        string format;
-        stringstream format_tokens(fields.at(8));
-        while (getline(format_tokens, format,':')){
-            record.mFormats.push_back(format);
-        }
-
-        // parse samples
+    // Parse samples !
+    if (fields.size() >= 10) {
+        // parse format
+        record.mFormats = utils::split(fields.at(8),':');
+        // Loop over samples
         for (uint i = 9 ; i<fields.size(); ++i)
         {
-            stringstream sample_tokens(fields.at(i));
-            string sample_value;
-            map<string,Value> sample_data;
-            int format_index=0;
+            // Parse one sample
+            SampleFormat sample_format; // store key:value
 
-            SampleFormat sample_format;
-            while (getline(sample_tokens, sample_value,':')){
-
+            // Loop over sample fields
+            // 5:45:5324
+            uint format_index = 0;
+            for (auto& value: utils::split(fields.at(i),':'))
+            {
                 auto key = record.mFormats[format_index];
-
                 Value::Type type = Value::String;
                 string number = "1";
+
+                // get dimension number : 1 as default
+                uint dim = utils::is_number(number) ? stoi(number) : 1;
 
                 try { type = this->format(key).type; } catch (...){};
                 try { number = this->format(key).number; } catch (...){};
 
+               if (number == "A") // 2,3
+                   value = utils::split(value,',')[alt_index];
 
-                sample_format[key] = Value(sample_value, type);
+               if (number == "." || number == "G")
+                   dim = utils::split(value,',').size();
 
-                format_index++;
+                sample_format[key] = Value(value, type, dim);
+            format_index++;
             }
             record.mSampleFormats.push_back(sample_format);
         }
