@@ -69,7 +69,22 @@ using namespace std;
 	%include "value.h"
 	%include  "vcfreader.h"
 
+	%pythoncode %{
+
+		def __next__(self):
+			if self.next():
+				return self.record()
+			else:
+				raise StopIteration;
+
+		VcfReader.__iter__ = lambda self: self
+		VcfReader.__next__ = __next__
+
+
+	%}
 	
+
+
 
 	%exception {
 		try {
