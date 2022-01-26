@@ -6,3 +6,4 @@ A fast VCF parser supporting annotation
 
 	swig -c++ -python src/vcfreader.i
 	python setup.py install 
+	python test.py
