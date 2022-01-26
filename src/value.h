@@ -13,6 +13,24 @@
 
 class Value
 {
+
+    /*!
+  * @class Value
+  * @brief The Type enum
+  *
+  * This is a generic class used to store values with unknown types like QVariant.
+  * It is intended to expose C++ value to Python.
+  *
+  * @example
+  *    Value value("343");
+  *    int a = value.to_int();
+  *
+  *    Value value("32,234", Value::Integer, 2);
+  *    for (auto v : value.to_list())
+  *       int a = v.to_int()
+
+*/
+
 public:
     enum Type{
         String,
@@ -26,26 +44,22 @@ public:
           Type type = Type::String,
           unsigned int dim = 1);
 
-    int toInt() const;
-    double toDouble() const;
-    bool toBool() const;
-
-    const std::string& toString() const;
-    std::vector<Value> toList() const;
+    //Conversion function
+    int to_int() const;
+    double to_double() const;
+    bool to_bool() const;
+    const std::string& to_string() const;
+    std::vector<Value> to_list() const;
 
     Type type() const;
-
-     std::string type_name() const;
-
-     unsigned int dim() const;
+    std::string type_name() const;
+    unsigned int dim() const;
 
 private:
     std::string mKey;
     std::string mValue;
     Type mType;
     unsigned int mDim;
-
-    //const static std::unordered_map<Value::Type, std::string> TypeNames;
 
 };
 

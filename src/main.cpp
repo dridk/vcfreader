@@ -10,7 +10,6 @@ int main(int argc, char **argv)
 //        cout<<reader.record().format("GL").toList().size()<<endl;
 //    }
 
-
-        ::testing::InitGoogleTest(&argc, argv);
+    ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

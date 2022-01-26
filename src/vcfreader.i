@@ -68,20 +68,22 @@ using namespace std;
 	%include "record.h"
 	%include "value.h"
 	%include  "vcfreader.h"
+  %attribute(Value, string, test, type_name,type_name);
 
+
+	%extend VcfReader {
 	%pythoncode %{
+
+		def __iter__(self):
+			return self 
 
 		def __next__(self):
 			if self.next():
 				return self.record()
 			else:
 				raise StopIteration;
-
-		VcfReader.__iter__ = lambda self: self
-		VcfReader.__next__ = __next__
-
-
 	%}
+}
 	
 
 

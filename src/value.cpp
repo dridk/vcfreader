@@ -1,37 +1,28 @@
 #include "value.h"
 
-//const std::unordered_map<Value::Type, std::string> Value::TypeNames = {
-//    {Value::Integer, "Integer"},
-//    {Value::Double, "Double"},
-//    {Value::Bool, "Bool"},
-//    {Value::String, "String"},
-//};
 
-
+//--------------------------------------------------------------------
 Value::Value( const std::string &value, Type type, unsigned int dim)
     :mValue(value),mType(type),mDim(dim)
 {
 
     if (value == "." or value == "")
         mType = Type::Invalid;
-
 }
-
-int Value::toInt() const
+//--------------------------------------------------------------------
+int Value::to_int() const
 {
-    if (utils::isNumber(mValue))
+    if (utils::is_number(mValue))
         return std::stoi(mValue);
 
     std::cerr<<"Cannot convert to int \n";
     return 0;
-
-
 }
-
-double Value::toDouble() const
+//--------------------------------------------------------------------
+double Value::to_double() const
 {
 
-    if (utils::isNumber(mValue)){
+    if (utils::is_number(mValue)){
         std::string s =  mValue;
         // replace , by .
         std::replace(s.begin(), s.end(), ',', '.');
@@ -42,10 +33,10 @@ double Value::toDouble() const
     return 0;
 
 }
-
-bool Value::toBool() const
+//--------------------------------------------------------------------
+bool Value::to_bool() const
 {
-    std::string value = utils::toLower(mValue);
+    std::string value = utils::to_lower(mValue);
 
     if (value == "0" || value == "1")
         return bool(std::stoi(mValue));
@@ -58,14 +49,16 @@ bool Value::toBool() const
 
 
     std::cerr<<"Cannot convert to double \n";
-    return 0;}
+    return 0;
+}
 
-const std::string &Value::toString() const
+//--------------------------------------------------------------------
+const std::string &Value::to_string() const
 {
     return mValue;
 }
-
-std::vector<Value> Value::toList() const
+//--------------------------------------------------------------------
+std::vector<Value> Value::to_list() const
 {
     std::vector<Value> results;
     std::stringstream st(mValue);
@@ -76,12 +69,12 @@ std::vector<Value> Value::toList() const
     return results;
 
 }
-
+//--------------------------------------------------------------------
 Value::Type Value::type() const
 {
     return mType;
 }
-
+//--------------------------------------------------------------------
 std::string Value::type_name() const
 {
     if (mType == Value::String)
@@ -93,11 +86,11 @@ std::string Value::type_name() const
     if (mType == Value::Bool)
         return "Bool";
     if (mType == Value::Invalid)
-        return "None";
+        return "Invalid";
 
-    return "None";
+    return "Invalid";
 }
-
+//--------------------------------------------------------------------
 unsigned int Value::dim() const
 {
     return mDim;

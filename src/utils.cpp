@@ -2,7 +2,7 @@
 
 namespace utils{
 
-bool isNumber(const std::string& str){
+bool is_number(const std::string& str){
     try {
         std::stod(str);
         return true;
@@ -14,7 +14,7 @@ bool isNumber(const std::string& str){
     }
 }
 
-std::string toLower(const std::string &str)
+std::string to_lower(const std::string &str)
 {
     std::string data = str;
     std::transform(data.begin(), data.end(), data.begin(),
@@ -22,7 +22,7 @@ std::string toLower(const std::string &str)
     return data;
 }
 
-std::string toUpper(const std::string &str)
+std::string to_upper(const std::string &str)
 {
     std::string data = str;
     std::transform(data.begin(), data.end(), data.begin(),
@@ -31,8 +31,8 @@ std::string toUpper(const std::string &str)
 }
 
 
-bool file_exists (const std::string& name) {
-    std::fstream f(name.c_str());
+bool file_exists (const std::string& filename) {
+    std::fstream f(filename.c_str());
     return f.good();
 }
 

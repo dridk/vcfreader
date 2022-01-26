@@ -9,12 +9,38 @@
 #include <fstream>
 
 namespace utils{
+/**
+ * A Set of useful function unavaible from C++ standard library
+*/
 
-bool isNumber(const std::string& str);
+/**
+ * @brief isNumber
+ * @param str
+ * @return true if string is a number
+ */
+bool is_number(const std::string& str);
 
-std::string toLower(const std::string& str);
-std::string toUpper(const std::string& str);
-bool file_exists (const std::string& name);
+/**
+ * @brief toLower
+ * @param str
+ * @return Lower string
+ */
+std::string to_lower(const std::string& str);
+
+/**
+ * @brief to_upper
+ * @param str
+ * @return Upper string
+ */
+std::string to_upper(const std::string& str);
+
+/**
+ * @brief file_exists
+ * @param name
+ * @return true if file exists. Otherwise return false
+ */
+bool file_exists (const std::string& filename);
+
 
 std::vector<std::string> split(const std::string& str, char sep);
 

@@ -228,7 +228,7 @@ Record VcfReader::readRecord(int alt_index)
                 string number = mInfos[_key].number; // 1,2,3
 
                 uint dim =1;
-                if (utils::isNumber(number))
+                if (utils::is_number(number))
                     dim = stoi(number);
 
                 if (number == "A")

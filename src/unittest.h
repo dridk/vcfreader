@@ -41,13 +41,13 @@ protected:
 // Tests that Foo does Xyz.
 TEST_F(ValueTest, ToInt)
 {
-    ASSERT_EQ(Value("324").toInt() , 324);
-    ASSERT_EQ(Value("-324").toInt() , -324);
-    ASSERT_EQ(Value("1").toBool() , true);
-    ASSERT_EQ(Value("0").toBool() , false);
-    ASSERT_EQ(Value("3.1").toDouble() , 3.1);
-    ASSERT_EQ(Value("3,4").toDouble() , 3.4);
-    ASSERT_EQ(Value("sacha").toString() , "sacha") << "marche pas";
+    ASSERT_EQ(Value("324").to_int() , 324);
+    ASSERT_EQ(Value("-324").to_int() , -324);
+    ASSERT_EQ(Value("1").to_bool() , true);
+    ASSERT_EQ(Value("0").to_bool() , false);
+    ASSERT_EQ(Value("3.1").to_double() , 3.1);
+    ASSERT_EQ(Value("3,4").to_double() , 3.4);
+    ASSERT_EQ(Value("sacha").to_string() , "sacha") << "marche pas";
 }
 
 
@@ -113,15 +113,15 @@ TEST_F(VcfReaderTest, Test_read_first_line)
     ASSERT_TRUE(record.filter() == "PASS");
 
 //// Test INFO
-   ASSERT_TRUE(record.info("AC").toInt() == 1);
-   ASSERT_TRUE(record.info("AF").toDouble() == 0.250);
-   ASSERT_TRUE(record.info("BaseQRankSum").toDouble() == -3.321);
-   ASSERT_TRUE(record.info("DB").toBool() == false);
+   ASSERT_TRUE(record.info("AC").to_int() == 1);
+   ASSERT_TRUE(record.info("AF").to_double() == 0.250);
+   ASSERT_TRUE(record.info("BaseQRankSum").to_double() == -3.321);
+   ASSERT_TRUE(record.info("DB").to_bool() == false);
 
 // TEST FORMAT
 
-  ASSERT_TRUE(record.format("GT", 0).toString() == "0/0");
-  ASSERT_TRUE(record.format("GT", 1).toString() == "0/1");
+  ASSERT_TRUE(record.format("GT", 0).to_string() == "0/0");
+  ASSERT_TRUE(record.format("GT", 1).to_string() == "0/1");
 
 
 }

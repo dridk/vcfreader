@@ -247,6 +247,17 @@ class VcfReader(object):
     @staticmethod
     def type_from_string(name):
         return _vcfreader.VcfReader_type_from_string(name)
+
+
+    def __iter__(self):
+    	return self 
+
+    def __next__(self):
+    	if self.next():
+    		return self.record()
+    	else:
+    		raise StopIteration;
+
     __swig_destroy__ = _vcfreader.delete_VcfReader
 
 # Register VcfReader in _vcfreader:
@@ -254,19 +265,6 @@ _vcfreader.VcfReader_swigregister(VcfReader)
 
 def VcfReader_type_from_string(name):
     return _vcfreader.VcfReader_type_from_string(name)
-
-
-
-def __next__(self):
-	if self.next():
-		return self.record()
-	else:
-		raise StopIteration;
-
-VcfReader.__iter__ = lambda self: self
-VcfReader.__next__ = __next__
-
-
 
 class StringVector(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
