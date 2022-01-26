@@ -64,6 +64,7 @@ using namespace std;
 		}
 	}
 
+	%template(StringVector) vector<string>;
 
 	%include "record.h"
 	%include "value.h"
@@ -97,5 +98,4 @@ using namespace std;
 
 
 
-	%template(StringVector) vector<string>;
 	%template(ListValue) vector<Value>;

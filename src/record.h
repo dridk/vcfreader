@@ -2,14 +2,14 @@
 #define RECORD_H
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include "value.h"
 
 class Value;
 class Record;
 class VcfReader;
 
-typedef std::map<std::string, Value> SampleFormat;
+typedef std::unordered_map<std::string, Value> SampleFormat;
 
 class Record
 {
@@ -29,6 +29,10 @@ public:
     const Value& info(const std::string& name) const;
     const Value& format(const std::string& name, int sample=0) const;
 
+    std::vector<std::string> info_keys() const;
+    std::vector<std::string> format_keys() const;
+
+
 private:
     std::string mChrom;
     unsigned long mPos;
@@ -37,7 +41,7 @@ private:
     std::string mAlt;
     std::string mQual;
     std::string mFilter;
-    std::map<std::string, Value> mInfos;
+    std::unordered_map<std::string, Value> mInfos;
 
     std::vector<std::string> mFormats;
     std::vector<SampleFormat> mSampleFormats;

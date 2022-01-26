@@ -51,6 +51,17 @@ const Value &Record::format(const std::string &name, int sample) const
     return mSampleFormats.at(sample).at(name);
 }
 
+std::vector<std::string> Record::info_keys() const
+{
+    return utils::get_keys(mInfos);
+}
+
+std::vector<std::string> Record::format_keys() const
+{
+    return mFormats;
+
+}
+
 //const vector<string, Value> &Record::infos() const
 //{
 //    return mInfos;

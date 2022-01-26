@@ -122,143 +122,6 @@ class SwigPyIterator(object):
 # Register SwigPyIterator in _vcfreader:
 _vcfreader.SwigPyIterator_swigregister(SwigPyIterator)
 
-class Record(object):
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        _vcfreader.Record_swiginit(self, _vcfreader.new_Record())
-
-    def chrom(self):
-        return _vcfreader.Record_chrom(self)
-
-    def pos(self):
-        return _vcfreader.Record_pos(self)
-
-    def id(self):
-        return _vcfreader.Record_id(self)
-
-    def ref(self):
-        return _vcfreader.Record_ref(self)
-
-    def alt(self):
-        return _vcfreader.Record_alt(self)
-
-    def qual(self):
-        return _vcfreader.Record_qual(self)
-
-    def filter(self):
-        return _vcfreader.Record_filter(self)
-
-    def info(self, name):
-        return _vcfreader.Record_info(self, name)
-
-    def format(self, name, sample=0):
-        return _vcfreader.Record_format(self, name, sample)
-    __swig_destroy__ = _vcfreader.delete_Record
-
-# Register Record in _vcfreader:
-_vcfreader.Record_swigregister(Record)
-
-class Value(object):
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    String = _vcfreader.Value_String
-    Integer = _vcfreader.Value_Integer
-    Double = _vcfreader.Value_Double
-    Bool = _vcfreader.Value_Bool
-    Invalid = _vcfreader.Value_Invalid
-
-    def __init__(self, *args):
-        _vcfreader.Value_swiginit(self, _vcfreader.new_Value(*args))
-
-    def to_int(self):
-        return _vcfreader.Value_to_int(self)
-
-    def to_double(self):
-        return _vcfreader.Value_to_double(self)
-
-    def to_bool(self):
-        return _vcfreader.Value_to_bool(self)
-
-    def to_string(self):
-        return _vcfreader.Value_to_string(self)
-
-    def to_list(self):
-        return _vcfreader.Value_to_list(self)
-
-    def type(self):
-        return _vcfreader.Value_type(self)
-
-    def type_name(self):
-        return _vcfreader.Value_type_name(self)
-
-    def dim(self):
-        return _vcfreader.Value_dim(self)
-    __swig_destroy__ = _vcfreader.delete_Value
-
-# Register Value in _vcfreader:
-_vcfreader.Value_swigregister(Value)
-
-class Header(object):
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    headerType = property(_vcfreader.Header_headerType_get, _vcfreader.Header_headerType_set)
-    id = property(_vcfreader.Header_id_get, _vcfreader.Header_id_set)
-    number = property(_vcfreader.Header_number_get, _vcfreader.Header_number_set)
-    type = property(_vcfreader.Header_type_get, _vcfreader.Header_type_set)
-    description = property(_vcfreader.Header_description_get, _vcfreader.Header_description_set)
-
-    def __init__(self):
-        _vcfreader.Header_swiginit(self, _vcfreader.new_Header())
-    __swig_destroy__ = _vcfreader.delete_Header
-
-# Register Header in _vcfreader:
-_vcfreader.Header_swigregister(Header)
-
-class VcfReader(object):
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, filename):
-        _vcfreader.VcfReader_swiginit(self, _vcfreader.new_VcfReader(filename))
-
-    def info(self, key):
-        return _vcfreader.VcfReader_info(self, key)
-
-    def format(self, key):
-        return _vcfreader.VcfReader_format(self, key)
-
-    def samples(self):
-        return _vcfreader.VcfReader_samples(self)
-
-    def info_keys(self):
-        return _vcfreader.VcfReader_info_keys(self)
-
-    def format_keys(self):
-        return _vcfreader.VcfReader_format_keys(self)
-
-    def next(self):
-        return _vcfreader.VcfReader_next(self)
-
-    def record(self):
-        return _vcfreader.VcfReader_record(self)
-
-
-    def __iter__(self):
-    	return self 
-
-    def __next__(self):
-    	if self.next():
-    		return self.record()
-    	else:
-    		raise StopIteration;
-
-    __swig_destroy__ = _vcfreader.delete_VcfReader
-
-# Register VcfReader in _vcfreader:
-_vcfreader.VcfReader_swigregister(VcfReader)
-
 class StringVector(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -364,6 +227,149 @@ class StringVector(object):
 
 # Register StringVector in _vcfreader:
 _vcfreader.StringVector_swigregister(StringVector)
+
+class Record(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        _vcfreader.Record_swiginit(self, _vcfreader.new_Record())
+
+    def chrom(self):
+        return _vcfreader.Record_chrom(self)
+
+    def pos(self):
+        return _vcfreader.Record_pos(self)
+
+    def id(self):
+        return _vcfreader.Record_id(self)
+
+    def ref(self):
+        return _vcfreader.Record_ref(self)
+
+    def alt(self):
+        return _vcfreader.Record_alt(self)
+
+    def qual(self):
+        return _vcfreader.Record_qual(self)
+
+    def filter(self):
+        return _vcfreader.Record_filter(self)
+
+    def info(self, name):
+        return _vcfreader.Record_info(self, name)
+
+    def format(self, name, sample=0):
+        return _vcfreader.Record_format(self, name, sample)
+
+    def info_keys(self):
+        return _vcfreader.Record_info_keys(self)
+
+    def format_keys(self):
+        return _vcfreader.Record_format_keys(self)
+    __swig_destroy__ = _vcfreader.delete_Record
+
+# Register Record in _vcfreader:
+_vcfreader.Record_swigregister(Record)
+
+class Value(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    String = _vcfreader.Value_String
+    Integer = _vcfreader.Value_Integer
+    Double = _vcfreader.Value_Double
+    Bool = _vcfreader.Value_Bool
+    Invalid = _vcfreader.Value_Invalid
+
+    def __init__(self, *args):
+        _vcfreader.Value_swiginit(self, _vcfreader.new_Value(*args))
+
+    def to_int(self):
+        return _vcfreader.Value_to_int(self)
+
+    def to_double(self):
+        return _vcfreader.Value_to_double(self)
+
+    def to_bool(self):
+        return _vcfreader.Value_to_bool(self)
+
+    def to_string(self):
+        return _vcfreader.Value_to_string(self)
+
+    def to_list(self):
+        return _vcfreader.Value_to_list(self)
+
+    def type(self):
+        return _vcfreader.Value_type(self)
+
+    def type_name(self):
+        return _vcfreader.Value_type_name(self)
+
+    def dim(self):
+        return _vcfreader.Value_dim(self)
+    __swig_destroy__ = _vcfreader.delete_Value
+
+# Register Value in _vcfreader:
+_vcfreader.Value_swigregister(Value)
+
+class Header(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    headerType = property(_vcfreader.Header_headerType_get, _vcfreader.Header_headerType_set)
+    id = property(_vcfreader.Header_id_get, _vcfreader.Header_id_set)
+    number = property(_vcfreader.Header_number_get, _vcfreader.Header_number_set)
+    type = property(_vcfreader.Header_type_get, _vcfreader.Header_type_set)
+    description = property(_vcfreader.Header_description_get, _vcfreader.Header_description_set)
+
+    def __init__(self):
+        _vcfreader.Header_swiginit(self, _vcfreader.new_Header())
+    __swig_destroy__ = _vcfreader.delete_Header
+
+# Register Header in _vcfreader:
+_vcfreader.Header_swigregister(Header)
+
+class VcfReader(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, filename):
+        _vcfreader.VcfReader_swiginit(self, _vcfreader.new_VcfReader(filename))
+
+    def info(self, key):
+        return _vcfreader.VcfReader_info(self, key)
+
+    def format(self, key):
+        return _vcfreader.VcfReader_format(self, key)
+
+    def samples(self):
+        return _vcfreader.VcfReader_samples(self)
+
+    def info_keys(self):
+        return _vcfreader.VcfReader_info_keys(self)
+
+    def format_keys(self):
+        return _vcfreader.VcfReader_format_keys(self)
+
+    def next(self):
+        return _vcfreader.VcfReader_next(self)
+
+    def record(self):
+        return _vcfreader.VcfReader_record(self)
+
+
+    def __iter__(self):
+    	return self 
+
+    def __next__(self):
+    	if self.next():
+    		return self.record()
+    	else:
+    		raise StopIteration;
+
+    __swig_destroy__ = _vcfreader.delete_VcfReader
+
+# Register VcfReader in _vcfreader:
+_vcfreader.VcfReader_swigregister(VcfReader)
 
 class ListValue(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
