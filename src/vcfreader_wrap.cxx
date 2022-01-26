@@ -3344,15 +3344,15 @@ SWIG_AsVal_ptrdiff_t (PyObject * obj, ptrdiff_t *val)
 		switch (value->type())
 		{
 			case Value::Double:
-			result = PyFloat_FromDouble(value->toDouble());	
+			result = PyFloat_FromDouble(value->to_double());	
 			break;
 
 			case Value::Integer:
-			result = PyInt_FromLong(value->toInt());	
+			result = PyInt_FromLong(value->to_int());	
 			break;
 
 			case Value::Bool:
-			result = value->toBool() ? Py_True : Py_False;	
+			result = value->to_bool() ? Py_True : Py_False;	
 			break;
 
 			case Value::Invalid:
@@ -3360,7 +3360,7 @@ SWIG_AsVal_ptrdiff_t (PyObject * obj, ptrdiff_t *val)
 			break;
 
 			case Value::String:
-			result = PyString_FromString(value->toString().c_str());
+			result = PyString_FromString(value->to_string().c_str());
 		}
 
 		return result;
@@ -6124,7 +6124,7 @@ SWIGINTERN PyObject *_wrap_Record_info(PyObject *SWIGUNUSEDPARM(self), PyObject 
     
     else
     {
-      vector<Value> value_list = result->toList();
+      vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
       for (auto i=0; i< value_list.size(); ++i)
@@ -6182,7 +6182,7 @@ SWIGINTERN PyObject *_wrap_Record_format__SWIG_0(PyObject *SWIGUNUSEDPARM(self),
     
     else
     {
-      vector<Value> value_list = result->toList();
+      vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
       for (auto i=0; i< value_list.size(); ++i)
@@ -6232,7 +6232,7 @@ SWIGINTERN PyObject *_wrap_Record_format__SWIG_1(PyObject *SWIGUNUSEDPARM(self),
     
     else
     {
-      vector<Value> value_list = result->toList();
+      vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
       for (auto i=0; i< value_list.size(); ++i)
@@ -6524,7 +6524,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Value_toInt(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Value_to_int(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Value *arg1 = (Value *) 0 ;
   void *argp1 = 0 ;
@@ -6536,10 +6536,10 @@ SWIGINTERN PyObject *_wrap_Value_toInt(PyObject *SWIGUNUSEDPARM(self), PyObject 
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Value, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_toInt" "', argument " "1"" of type '" "Value const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_to_int" "', argument " "1"" of type '" "Value const *""'"); 
   }
   arg1 = reinterpret_cast< Value * >(argp1);
-  result = (int)((Value const *)arg1)->toInt();
+  result = (int)((Value const *)arg1)->to_int();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -6547,7 +6547,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Value_toDouble(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Value_to_double(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Value *arg1 = (Value *) 0 ;
   void *argp1 = 0 ;
@@ -6559,10 +6559,10 @@ SWIGINTERN PyObject *_wrap_Value_toDouble(PyObject *SWIGUNUSEDPARM(self), PyObje
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Value, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_toDouble" "', argument " "1"" of type '" "Value const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_to_double" "', argument " "1"" of type '" "Value const *""'"); 
   }
   arg1 = reinterpret_cast< Value * >(argp1);
-  result = (double)((Value const *)arg1)->toDouble();
+  result = (double)((Value const *)arg1)->to_double();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -6570,7 +6570,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Value_toBool(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Value_to_bool(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Value *arg1 = (Value *) 0 ;
   void *argp1 = 0 ;
@@ -6582,10 +6582,10 @@ SWIGINTERN PyObject *_wrap_Value_toBool(PyObject *SWIGUNUSEDPARM(self), PyObject
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Value, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_toBool" "', argument " "1"" of type '" "Value const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_to_bool" "', argument " "1"" of type '" "Value const *""'"); 
   }
   arg1 = reinterpret_cast< Value * >(argp1);
-  result = (bool)((Value const *)arg1)->toBool();
+  result = (bool)((Value const *)arg1)->to_bool();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -6593,7 +6593,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Value_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Value_to_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Value *arg1 = (Value *) 0 ;
   void *argp1 = 0 ;
@@ -6605,10 +6605,10 @@ SWIGINTERN PyObject *_wrap_Value_toString(PyObject *SWIGUNUSEDPARM(self), PyObje
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Value, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_toString" "', argument " "1"" of type '" "Value const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_to_string" "', argument " "1"" of type '" "Value const *""'"); 
   }
   arg1 = reinterpret_cast< Value * >(argp1);
-  result = (std::string *) &((Value const *)arg1)->toString();
+  result = (std::string *) &((Value const *)arg1)->to_string();
   resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
   return resultobj;
 fail:
@@ -6616,7 +6616,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Value_toList(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Value_to_list(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Value *arg1 = (Value *) 0 ;
   void *argp1 = 0 ;
@@ -6628,10 +6628,10 @@ SWIGINTERN PyObject *_wrap_Value_toList(PyObject *SWIGUNUSEDPARM(self), PyObject
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Value, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_toList" "', argument " "1"" of type '" "Value const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Value_to_list" "', argument " "1"" of type '" "Value const *""'"); 
   }
   arg1 = reinterpret_cast< Value * >(argp1);
-  result = ((Value const *)arg1)->toList();
+  result = ((Value const *)arg1)->to_list();
   resultobj = SWIG_NewPointerObj((new std::vector< Value,std::allocator< Value > >(static_cast< const std::vector< Value,std::allocator< Value > >& >(result))), SWIGTYPE_p_std__vectorT_Value_std__allocatorT_Value_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -10184,7 +10184,7 @@ SWIGINTERN PyObject *_wrap_ListValue___getitem____SWIG_1(PyObject *SWIGUNUSEDPAR
     
     else
     {
-      vector<Value> value_list = result->toList();
+      vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
       for (auto i=0; i< value_list.size(); ++i)
@@ -11153,7 +11153,7 @@ SWIGINTERN PyObject *_wrap_ListValue_front(PyObject *SWIGUNUSEDPARM(self), PyObj
     
     else
     {
-      vector<Value> value_list = result->toList();
+      vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
       for (auto i=0; i< value_list.size(); ++i)
@@ -11197,7 +11197,7 @@ SWIGINTERN PyObject *_wrap_ListValue_back(PyObject *SWIGUNUSEDPARM(self), PyObje
     
     else
     {
-      vector<Value> value_list = result->toList();
+      vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
       for (auto i=0; i< value_list.size(); ++i)
@@ -11661,11 +11661,11 @@ static PyMethodDef SwigMethods[] = {
 	 { "Record_swigregister", Record_swigregister, METH_O, NULL},
 	 { "Record_swiginit", Record_swiginit, METH_VARARGS, NULL},
 	 { "new_Value", _wrap_new_Value, METH_VARARGS, NULL},
-	 { "Value_toInt", _wrap_Value_toInt, METH_O, NULL},
-	 { "Value_toDouble", _wrap_Value_toDouble, METH_O, NULL},
-	 { "Value_toBool", _wrap_Value_toBool, METH_O, NULL},
-	 { "Value_toString", _wrap_Value_toString, METH_O, NULL},
-	 { "Value_toList", _wrap_Value_toList, METH_O, NULL},
+	 { "Value_to_int", _wrap_Value_to_int, METH_O, NULL},
+	 { "Value_to_double", _wrap_Value_to_double, METH_O, NULL},
+	 { "Value_to_bool", _wrap_Value_to_bool, METH_O, NULL},
+	 { "Value_to_string", _wrap_Value_to_string, METH_O, NULL},
+	 { "Value_to_list", _wrap_Value_to_list, METH_O, NULL},
 	 { "Value_type", _wrap_Value_type, METH_O, NULL},
 	 { "Value_type_name", _wrap_Value_type_name, METH_O, NULL},
 	 { "Value_dim", _wrap_Value_dim, METH_O, NULL},

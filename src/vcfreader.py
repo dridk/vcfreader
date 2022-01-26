@@ -172,20 +172,20 @@ class Value(object):
     def __init__(self, *args):
         _vcfreader.Value_swiginit(self, _vcfreader.new_Value(*args))
 
-    def toInt(self):
-        return _vcfreader.Value_toInt(self)
+    def to_int(self):
+        return _vcfreader.Value_to_int(self)
 
-    def toDouble(self):
-        return _vcfreader.Value_toDouble(self)
+    def to_double(self):
+        return _vcfreader.Value_to_double(self)
 
-    def toBool(self):
-        return _vcfreader.Value_toBool(self)
+    def to_bool(self):
+        return _vcfreader.Value_to_bool(self)
 
-    def toString(self):
-        return _vcfreader.Value_toString(self)
+    def to_string(self):
+        return _vcfreader.Value_to_string(self)
 
-    def toList(self):
-        return _vcfreader.Value_toList(self)
+    def to_list(self):
+        return _vcfreader.Value_to_list(self)
 
     def type(self):
         return _vcfreader.Value_type(self)

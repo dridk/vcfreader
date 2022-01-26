@@ -21,15 +21,15 @@ using namespace std;
 		switch (value->type())
 		{
 			case Value::Double:
-			result = PyFloat_FromDouble(value->toDouble());	
+			result = PyFloat_FromDouble(value->to_double());	
 			break;
 
 			case Value::Integer:
-			result = PyInt_FromLong(value->toInt());	
+			result = PyInt_FromLong(value->to_int());	
 			break;
 
 			case Value::Bool:
-			result = value->toBool() ? Py_True : Py_False;	
+			result = value->to_bool() ? Py_True : Py_False;	
 			break;
 
 			case Value::Invalid:
@@ -37,7 +37,7 @@ using namespace std;
 			break;
 
 			case Value::String:
-			result = PyString_FromString(value->toString().c_str());
+			result = PyString_FromString(value->to_string().c_str());
 		}
 
 		return result;
@@ -54,7 +54,7 @@ using namespace std;
 
 		else
 		{
-			vector<Value> value_list = $1->toList();
+			vector<Value> value_list = $1->to_list();
 			PyObject *pylist = PyTuple_New(value_list.size());
 
 			for (auto i=0; i< value_list.size(); ++i)
