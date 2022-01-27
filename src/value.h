@@ -10,7 +10,7 @@
 #include <cctype>
 
 #include "utils.h"
-
+class Value;
 class Value
 {
 
@@ -49,6 +49,7 @@ public:
     Value(float value);
     Value(bool value);
 
+
     //Conversion function
     int to_int() const;
     double to_double() const;
@@ -66,6 +67,7 @@ private:
     std::string mValue;
     Type mType;
     unsigned int mDim;
+
 
 };
 

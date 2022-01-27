@@ -46,6 +46,7 @@ private:
     std::vector<std::string> mFormats;
     std::vector<SampleFormat> mSampleFormats;
 
+    Value mNullValue;
 
 };
 

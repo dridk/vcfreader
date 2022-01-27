@@ -37,6 +37,8 @@ Value::Value(bool value)
     mDim = 1;
     mValue = std::to_string(value);
 }
+
+
 //--------------------------------------------------------------------
 int Value::to_int() const
 {

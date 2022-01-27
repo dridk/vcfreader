@@ -1,7 +1,9 @@
 #include "record.h"
 
 Record::Record()
-{}
+{
+    mNullValue = Value("", Value::Invalid);
+}
 
 
 const std::string &Record::chrom() const
@@ -41,8 +43,10 @@ const std::string &Record::filter() const
 
 const Value &Record::info(const std::string &name) const
 {
-
+    if (mInfos.count(name))
         return mInfos.at(name);
+
+    return mNullValue;
 
 
 
@@ -50,7 +54,10 @@ const Value &Record::info(const std::string &name) const
 
 const Value &Record::format(const std::string &name, int sample) const
 {
-    return mSampleFormats.at(sample).at(name);
+    if (mSampleFormats[sample].count(name))
+        return mSampleFormats.at(sample).at(name);
+
+    return mNullValue;
 }
 
 std::vector<std::string> Record::info_keys() const
