@@ -57,6 +57,7 @@ public:
     const std::string& to_string() const;
     std::vector<Value> to_list() const;
 
+    static const Value& none();
 
     Type type() const;
     std::string type_name() const;
@@ -67,6 +68,8 @@ private:
     std::string mValue;
     Type mType;
     unsigned int mDim;
+
+    static const Value none_value;
 
 
 };

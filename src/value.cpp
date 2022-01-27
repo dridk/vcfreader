@@ -1,5 +1,6 @@
 #include "value.h"
 
+const Value Value::none_value = Value("",Type::Invalid);
 
 //--------------------------------------------------------------------
 Value::Value( const std::string &value, Type type, unsigned int dim)
@@ -98,6 +99,11 @@ std::vector<Value> Value::to_list() const
 
     return results;
 
+}
+
+const Value &Value::none()
+{
+    return Value::none_value;
 }
 //--------------------------------------------------------------------
 Value::Type Value::type() const

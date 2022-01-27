@@ -299,6 +299,10 @@ class Value(object):
     def to_list(self):
         return _vcfreader.Value_to_list(self)
 
+    @staticmethod
+    def none():
+        return _vcfreader.Value_none()
+
     def type(self):
         return _vcfreader.Value_type(self)
 
@@ -311,6 +315,9 @@ class Value(object):
 
 # Register Value in _vcfreader:
 _vcfreader.Value_swigregister(Value)
+
+def Value_none():
+    return _vcfreader.Value_none()
 
 class Header(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
@@ -334,6 +341,12 @@ class VcfReader(object):
 
     def __init__(self, filename):
         _vcfreader.VcfReader_swiginit(self, _vcfreader.new_VcfReader(filename))
+
+    def total_bytes(self):
+        return _vcfreader.VcfReader_total_bytes(self)
+
+    def read_bytes(self):
+        return _vcfreader.VcfReader_read_bytes(self)
 
     def info(self, key):
         return _vcfreader.VcfReader_info(self, key)

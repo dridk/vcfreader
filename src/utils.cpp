@@ -18,7 +18,7 @@ std::string to_lower(const std::string &str)
 {
     std::string data = str;
     std::transform(data.begin(), data.end(), data.begin(),
-        [](unsigned char c){ return std::tolower(c); });
+                   [](unsigned char c){ return std::tolower(c); });
     return data;
 }
 
@@ -26,7 +26,7 @@ std::string to_upper(const std::string &str)
 {
     std::string data = str;
     std::transform(data.begin(), data.end(), data.begin(),
-        [](unsigned char c){ return std::toupper(c); });
+                   [](unsigned char c){ return std::toupper(c); });
     return data;
 }
 
@@ -41,11 +41,17 @@ std::vector<std::string> split(const std::string &str, char sep)
     std::stringstream f(str);
     std::string s;
     std::vector<std::string> results;
-     while (getline(f, s, sep)) {
-         results.push_back(s);
-     }
+    while (getline(f, s, sep)) {
+        results.push_back(s);
+    }
 
-     return results;
+    return results;
+}
+
+std::ifstream::pos_type file_size(const char *filename)
+{
+    std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+    return in.tellg();
 }
 
 

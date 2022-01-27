@@ -63,7 +63,7 @@ using namespace std;
 			vector<Value> value_list = $1->to_list();
 			PyObject *pylist = PyTuple_New(value_list.size());
 
-			for (auto i=0; i< value_list.size(); ++i)
+			for (unsigned long i=0; i< value_list.size(); ++i)
 				PyTuple_SetItem(pylist, i, value_to_py(&value_list[i]));
 
 			$result = pylist;

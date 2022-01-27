@@ -8067,7 +8067,7 @@ SWIGINTERN PyObject *_wrap_Record_info(PyObject *SWIGUNUSEDPARM(self), PyObject 
       vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
-      for (auto i=0; i< value_list.size(); ++i)
+      for (unsigned long i=0; i< value_list.size(); ++i)
       PyTuple_SetItem(pylist, i, value_to_py(&value_list[i]));
       
       resultobj = pylist;
@@ -8125,7 +8125,7 @@ SWIGINTERN PyObject *_wrap_Record_format__SWIG_0(PyObject *SWIGUNUSEDPARM(self),
       vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
-      for (auto i=0; i< value_list.size(); ++i)
+      for (unsigned long i=0; i< value_list.size(); ++i)
       PyTuple_SetItem(pylist, i, value_to_py(&value_list[i]));
       
       resultobj = pylist;
@@ -8175,7 +8175,7 @@ SWIGINTERN PyObject *_wrap_Record_format__SWIG_1(PyObject *SWIGUNUSEDPARM(self),
       vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
-      for (auto i=0; i< value_list.size(); ++i)
+      for (unsigned long i=0; i< value_list.size(); ++i)
       PyTuple_SetItem(pylist, i, value_to_py(&value_list[i]));
       
       resultobj = pylist;
@@ -8753,6 +8753,33 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Value_none(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Value *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Value_none", 0, 0, 0)) SWIG_fail;
+  result = (Value *) &Value::none();
+  {
+    if (result->dim() == 1)
+    resultobj = value_to_py(result);
+    
+    else
+    {
+      vector<Value> value_list = result->to_list();
+      PyObject *pylist = PyTuple_New(value_list.size());
+      
+      for (unsigned long i=0; i< value_list.size(); ++i)
+      PyTuple_SetItem(pylist, i, value_to_py(&value_list[i]));
+      
+      resultobj = pylist;
+    }
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Value_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Value *arg1 = (Value *) 0 ;
@@ -9233,6 +9260,52 @@ SWIGINTERN PyObject *_wrap_new_VcfReader(PyObject *SWIGUNUSEDPARM(self), PyObjec
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_VcfReader_total_bytes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  VcfReader *arg1 = (VcfReader *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  int result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VcfReader, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader_total_bytes" "', argument " "1"" of type '" "VcfReader const *""'"); 
+  }
+  arg1 = reinterpret_cast< VcfReader * >(argp1);
+  result = (int)((VcfReader const *)arg1)->total_bytes();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_VcfReader_read_bytes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  VcfReader *arg1 = (VcfReader *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  int result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VcfReader, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VcfReader_read_bytes" "', argument " "1"" of type '" "VcfReader const *""'"); 
+  }
+  arg1 = reinterpret_cast< VcfReader * >(argp1);
+  result = (int)((VcfReader const *)arg1)->read_bytes();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -10153,7 +10226,7 @@ SWIGINTERN PyObject *_wrap_ListValue___getitem____SWIG_1(PyObject *SWIGUNUSEDPAR
       vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
-      for (auto i=0; i< value_list.size(); ++i)
+      for (unsigned long i=0; i< value_list.size(); ++i)
       PyTuple_SetItem(pylist, i, value_to_py(&value_list[i]));
       
       resultobj = pylist;
@@ -11122,7 +11195,7 @@ SWIGINTERN PyObject *_wrap_ListValue_front(PyObject *SWIGUNUSEDPARM(self), PyObj
       vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
-      for (auto i=0; i< value_list.size(); ++i)
+      for (unsigned long i=0; i< value_list.size(); ++i)
       PyTuple_SetItem(pylist, i, value_to_py(&value_list[i]));
       
       resultobj = pylist;
@@ -11166,7 +11239,7 @@ SWIGINTERN PyObject *_wrap_ListValue_back(PyObject *SWIGUNUSEDPARM(self), PyObje
       vector<Value> value_list = result->to_list();
       PyObject *pylist = PyTuple_New(value_list.size());
       
-      for (auto i=0; i< value_list.size(); ++i)
+      for (unsigned long i=0; i< value_list.size(); ++i)
       PyTuple_SetItem(pylist, i, value_to_py(&value_list[i]));
       
       resultobj = pylist;
@@ -11669,6 +11742,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "Value_to_bool", _wrap_Value_to_bool, METH_O, NULL},
 	 { "Value_to_string", _wrap_Value_to_string, METH_O, NULL},
 	 { "Value_to_list", _wrap_Value_to_list, METH_O, NULL},
+	 { "Value_none", _wrap_Value_none, METH_NOARGS, NULL},
 	 { "Value_type", _wrap_Value_type, METH_O, NULL},
 	 { "Value_type_name", _wrap_Value_type_name, METH_O, NULL},
 	 { "Value_dim", _wrap_Value_dim, METH_O, NULL},
@@ -11690,6 +11764,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "Header_swigregister", Header_swigregister, METH_O, NULL},
 	 { "Header_swiginit", Header_swiginit, METH_VARARGS, NULL},
 	 { "new_VcfReader", _wrap_new_VcfReader, METH_O, NULL},
+	 { "VcfReader_total_bytes", _wrap_VcfReader_total_bytes, METH_O, NULL},
+	 { "VcfReader_read_bytes", _wrap_VcfReader_read_bytes, METH_O, NULL},
 	 { "VcfReader_info", _wrap_VcfReader_info, METH_VARARGS, NULL},
 	 { "VcfReader_format", _wrap_VcfReader_format, METH_VARARGS, NULL},
 	 { "VcfReader_samples", _wrap_VcfReader_samples, METH_O, NULL},

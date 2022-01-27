@@ -25,9 +25,25 @@ VcfReader::VcfReader(const string &filename)
 
     std::setlocale(LC_ALL, "en_US.UTF-8");
     mFile = new zstr::ifstream(filename, ios::binary);
+    mFileSize = utils::file_size(mFilename.c_str());
+
     parse_header();
 
+
+
 }
+
+int VcfReader::total_bytes() const
+{
+    return mFileSize;
+}
+
+int VcfReader::read_bytes() const
+{
+    return mFile->compressed_tellg();
+}
+
+
 
 
 void VcfReader::parse_header()
@@ -82,7 +98,7 @@ Value::Type VcfReader::type_from_string(const string &name)
     Value::Type type;
     try {
         type = StringToTypeMap.at(name);
-    }  catch (std::out_of_range) {
+    }  catch (std::out_of_range& ) {
 
         type = Value::String;
     }

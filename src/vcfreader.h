@@ -28,6 +28,9 @@ class VcfReader
 public:
     VcfReader(const string &filename);
 
+    int total_bytes() const;
+    int read_bytes() const;
+
 
     const Header &info(const string &key);
     const Header &format(const string &key);
@@ -59,6 +62,8 @@ private:
     unordered_map<string, Header> mFilter;
     vector<string> mSamples;
 
+    std::ifstream::pos_type mFileSize;
+
     vector<string> mFlagInfos;
 
     queue<Record> mRecordsQueue;
@@ -67,5 +72,6 @@ private:
 
 
     zstr::ifstream *mFile;
+
     uint64_t mStartLine;
 };

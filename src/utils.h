@@ -45,6 +45,9 @@ bool file_exists (const std::string& filename);
 
 std::vector<std::string> split(const std::string& str, char sep);
 
+
+std::ifstream::pos_type file_size(const char* filename);
+
 //----------- TEMPLATE FCT -------------------------------
 template <class T, class K>
 std::vector<T> get_keys(const std::unordered_map<T,K>& map){
