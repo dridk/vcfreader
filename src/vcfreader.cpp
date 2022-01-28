@@ -203,7 +203,7 @@ Record VcfReader::parse_record(int alt_index)
 
                 string value = raw_value;
                 // get dimension number : 1 as default
-                uint dim = utils::is_number(number) ? stoi(number) : 1;
+                unsigned int dim = utils::is_number(number) ? stoi(number) : 1;
 
                 if (number == "A")
                     value = utils::split(raw_value,',')[alt_index];
@@ -227,14 +227,14 @@ Record VcfReader::parse_record(int alt_index)
         // parse format
         record.mFormats = utils::split(fields.at(8),':');
         // Loop over samples
-        for (uint i = 9 ; i<fields.size(); ++i)
+        for (unsigned int i = 9 ; i<fields.size(); ++i)
         {
             // Parse one sample
             SampleFormat sample_format; // store key:value
 
             // Loop over sample fields
             // 5:45:5324
-            uint format_index = 0;
+            unsigned int format_index = 0;
             for (auto& value: utils::split(fields.at(i),':'))
             {
                 auto key = record.mFormats[format_index];
@@ -242,7 +242,7 @@ Record VcfReader::parse_record(int alt_index)
                 string number = "1";
 
                 // get dimension number : 1 as default
-                uint dim = utils::is_number(number) ? stoi(number) : 1;
+                unsigned int dim = utils::is_number(number) ? stoi(number) : 1;
 
                 try { type = this->format(key).type; } catch (...){};
                 try { number = this->format(key).number; } catch (...){};
