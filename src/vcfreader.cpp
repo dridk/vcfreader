@@ -250,7 +250,7 @@ Record VcfReader::parse_record(int alt_index)
                if (number == "A") // 2,3
                    value = utils::split(value,',')[alt_index];
 
-               if (number == "." || number == "G")
+               if ((number == ".") || (number == "G"))
                    dim = utils::split(value,',').size();
 
                 sample_format[key] = Value(value, type, dim);
