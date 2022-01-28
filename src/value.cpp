@@ -7,7 +7,7 @@ Value::Value( const std::string &value, Type type, unsigned int dim)
     :mValue(value),mType(type),mDim(dim)
 {
 
-    if (value == "." or value == "")
+    if ((value == ".") || (value == ""))
         mType = Type::Invalid;
 }
 

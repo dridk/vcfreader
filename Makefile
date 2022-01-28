@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR='"/LINUX_DATA/dev/cutevariant/vcfreader"'
+DEFINES       = -DQT_NO_DEBUG -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -Izlib -Izstr -Ilest -I/usr/include/qt -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I. -I/usr/lib/qt/mkspecs/linux-g++
+INCPATH       = -I. -Izlib -Izstr -Ilest -I/usr/include/qt -I/usr/include/qt/QtCore -I. -I/usr/lib/qt/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = testvcfreader1.0.0
 DISTDIR = /LINUX_DATA/dev/cutevariant/vcfreader/.tmp/testvcfreader1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -fPIC
-LIBS          = $(SUBLIBS) -lz /usr/lib/libQt5Test.so /usr/lib/libQt5Core.so -lpthread   
+LIBS          = $(SUBLIBS) -lgtest -lz /usr/lib/libQt5Core.so -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,16 +53,15 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = src/utils.cpp \
+		src/main.cpp \
 		src/record.cpp \
 		src/value.cpp \
-		src/test.cpp \
-		src/vcfreader.cpp moc_test.cpp
+		src/vcfreader.cpp 
 OBJECTS       = utils.o \
+		main.o \
 		record.o \
 		value.o \
-		test.o \
-		vcfreader.o \
-		moc_test.o
+		vcfreader.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -281,7 +280,6 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/resources.prf \
 		/usr/lib/qt/mkspecs/features/moc.prf \
 		/usr/lib/qt/mkspecs/features/link_ltcg.prf \
-		/usr/lib/qt/mkspecs/features/testlib_defines.prf \
 		/usr/lib/qt/mkspecs/features/unix/thread.prf \
 		/usr/lib/qt/mkspecs/features/qmake_use.prf \
 		/usr/lib/qt/mkspecs/features/file_copies.prf \
@@ -292,11 +290,10 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		vcfreader.pro src/record.h \
 		src/utils.h \
 		src/value.h \
-		src/test.h \
 		src/vcfreader.h src/utils.cpp \
+		src/main.cpp \
 		src/record.cpp \
 		src/value.cpp \
-		src/test.cpp \
 		src/vcfreader.cpp
 QMAKE_TARGET  = testvcfreader
 DESTDIR       = 
@@ -527,7 +524,6 @@ Makefile: vcfreader.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mks
 		/usr/lib/qt/mkspecs/features/resources.prf \
 		/usr/lib/qt/mkspecs/features/moc.prf \
 		/usr/lib/qt/mkspecs/features/link_ltcg.prf \
-		/usr/lib/qt/mkspecs/features/testlib_defines.prf \
 		/usr/lib/qt/mkspecs/features/unix/thread.prf \
 		/usr/lib/qt/mkspecs/features/qmake_use.prf \
 		/usr/lib/qt/mkspecs/features/file_copies.prf \
@@ -755,7 +751,6 @@ Makefile: vcfreader.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mks
 /usr/lib/qt/mkspecs/features/resources.prf:
 /usr/lib/qt/mkspecs/features/moc.prf:
 /usr/lib/qt/mkspecs/features/link_ltcg.prf:
-/usr/lib/qt/mkspecs/features/testlib_defines.prf:
 /usr/lib/qt/mkspecs/features/unix/thread.prf:
 /usr/lib/qt/mkspecs/features/qmake_use.prf:
 /usr/lib/qt/mkspecs/features/file_copies.prf:
@@ -779,8 +774,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/record.h src/utils.h src/value.h src/test.h src/vcfreader.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/utils.cpp src/record.cpp src/value.cpp src/test.cpp src/vcfreader.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/record.h src/utils.h src/value.h src/vcfreader.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/utils.cpp src/main.cpp src/record.cpp src/value.cpp src/vcfreader.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -812,14 +807,8 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_test.cpp
+compiler_moc_header_make_all:
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_test.cpp
-moc_test.cpp: src/test.h \
-		moc_predefs.h \
-		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /LINUX_DATA/dev/cutevariant/vcfreader/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/LINUX_DATA/dev/cutevariant/vcfreader -I/LINUX_DATA/dev/cutevariant/vcfreader/zlib -I/LINUX_DATA/dev/cutevariant/vcfreader/zstr -I/LINUX_DATA/dev/cutevariant/vcfreader/lest -I/usr/include/qt -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/11.1.0 -I/usr/include/c++/11.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/11.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed -I/usr/include src/test.h -o moc_test.cpp
-
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -830,12 +819,24 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
+compiler_clean: compiler_moc_predefs_clean 
 
 ####### Compile
 
 utils.o: src/utils.cpp src/utils.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o utils.o src/utils.cpp
+
+main.o: src/main.cpp src/unittest.h \
+		src/value.h \
+		src/utils.h \
+		src/vcfreader.h \
+		zstr/zstr.hpp \
+		zlib/zlib.h \
+		zlib/zconf.h \
+		zstr/strict_fstream.hpp \
+		zstr/zstr_make_unique_polyfill.h \
+		src/record.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 record.o: src/record.cpp src/record.h \
 		src/value.h \
@@ -845,12 +846,6 @@ record.o: src/record.cpp src/record.h \
 value.o: src/value.cpp src/value.h \
 		src/utils.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o value.o src/value.cpp
-
-test.o: src/test.cpp src/test.h \
-		src/value.h \
-		src/utils.h \
-		src/record.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o test.o src/test.cpp
 
 vcfreader.o: src/vcfreader.cpp src/vcfreader.h \
 		zstr/zstr.hpp \
@@ -862,9 +857,6 @@ vcfreader.o: src/vcfreader.cpp src/vcfreader.h \
 		src/value.h \
 		src/utils.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vcfreader.o src/vcfreader.cpp
-
-moc_test.o: moc_test.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_test.o moc_test.cpp
 
 ####### Install
 
